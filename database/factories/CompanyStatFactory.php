@@ -19,6 +19,7 @@ class CompanyStatFactory extends Factory
     {
         return [
             'label' => ucwords($this->faker->words(3, true)),
+            'code_label' => strtoupper($this->faker->words(2, true)),
             'value' => (string) $this->faker->numberBetween(1, 500),
             'suffix' => $this->faker->randomElement(['+', '%', ' MT', null]),
             'description' => $this->faker->sentence(),

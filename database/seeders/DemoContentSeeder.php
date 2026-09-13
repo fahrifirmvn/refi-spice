@@ -210,24 +210,28 @@ class DemoContentSeeder extends Seeder
     {
         $stats = [
             [
+                'code_label' => 'Lot Est. Archive',
                 'label' => 'Tahun Perjalanan Dimulai',
                 'value' => '1998',
                 'suffix' => null,
                 'description' => 'Lebih dari 2 dekade mengarungi rantai pasok rempah nusantara.',
             ],
             [
+                'code_label' => 'Global Jurisdiction',
                 'label' => 'Negara Destinasi Ekspor',
                 'value' => '32',
                 'suffix' => '+',
                 'description' => 'Eropa Barat, Amerika Utara, Timur Tengah, dan Asia Pasifik.',
             ],
             [
+                'code_label' => 'Community Equity',
                 'label' => 'Keluarga Petani Mitra',
                 'value' => '1450',
                 'suffix' => '+',
                 'description' => 'Binaan langsung dengan praktik pertanian lestari dan harga adil (Fair Trade).',
             ],
             [
+                'code_label' => 'Lab Clearance Ratio',
                 'label' => 'Tingkat Kelulusan Fitosanitari',
                 'value' => '99.8',
                 'suffix' => '%',
@@ -243,6 +247,7 @@ class DemoContentSeeder extends Seeder
             ]);
         }
     }
+
 
     private function seedCertifications(): void
     {
@@ -264,25 +269,33 @@ class DemoContentSeeder extends Seeder
         $steps = [
             [
                 'title' => 'Ditanam Lestari',
+                'category_label' => 'Agroforestri Tradisional',
                 'description' => 'Ditanam di tanah vulkanik kaya mineral tanpa pupuk kimia sintetis, dengan sistem tumpang sari hutan alami.',
+                'image_caption' => 'Vulkanik Organik',
                 'data_label' => 'Eko-Biodiversitas',
                 'data_value' => '100% Non-GMO',
             ],
             [
                 'title' => 'Dipanen Tangan',
+                'category_label' => 'Sortir Pohon Awal',
                 'description' => 'Petani memetik secara selektif pada puncak kematangan buah pala dan bunga cengkeh demi kadar minyak atsiri tertinggi.',
+                'image_caption' => 'Pelepahan Manual',
                 'data_label' => 'Minyak Atsiri Optimal',
                 'data_value' => '> 11.5% Essence',
             ],
             [
                 'title' => 'Diproses Tradisional',
+                'category_label' => 'Kadar Air Terstandar',
                 'description' => 'Pengeringan bertahap dengan sinar matahari tropis dan pengasapan terkendali untuk menjaga integritas aroma dan warna alami.',
+                'image_caption' => 'Pengeringan Higienis',
                 'data_label' => 'Kelembaban Maks',
                 'data_value' => '≤ 10% Moisture',
             ],
             [
                 'title' => 'Dikirim ke Dunia',
+                'category_label' => 'Fitosanitari & Ekspor',
                 'description' => 'Pengemasan hermetis dengan perlindungan kelembaban ganda, siap berlayar dari pelabuhan Tanjung Priok dan Tanjung Perak.',
+                'image_caption' => 'Sealed Food-Grade',
                 'data_label' => 'Port of Origin',
                 'data_value' => 'SUB & TPK Ready',
             ],
@@ -292,8 +305,10 @@ class DemoContentSeeder extends Seeder
             ProcessStep::create([
                 'step_number' => $index + 1,
                 'title' => $data['title'],
+                'category_label' => $data['category_label'],
                 'description' => $data['description'],
                 'image_path' => null,
+                'image_caption' => $data['image_caption'],
                 'data_label' => $data['data_label'],
                 'data_value' => $data['data_value'],
                 'is_active' => true,
@@ -301,6 +316,7 @@ class DemoContentSeeder extends Seeder
             ]);
         }
     }
+
 
     private function seedTestimonials(): void
     {
@@ -338,6 +354,9 @@ class DemoContentSeeder extends Seeder
     private function seedPageContents(): void
     {
         $contents = [
+            'brand' => [
+                'tagline' => 'Single-Origin Botanical Exporter • Indonesia',
+            ],
             'hero' => [
                 'eyebrow' => 'Komoditas Rempah Single-Origin Nusantara',
                 'headline' => 'Warisan Rempah, Cerita Dunia.',
@@ -345,16 +364,99 @@ class DemoContentSeeder extends Seeder
                 'body' => 'Membawa kemurnian rempah tropis dari petani nusantara menuju panggung kuliner dan farmasi global. Dedikasi tanpa kompromi pada mutu, aroma, dan keberlanjutan tradisi kepulauan rempah.',
                 'cta_primary_label' => 'Jelajahi Koleksi',
                 'cta_secondary_label' => 'Pelajari Standar Ekspor',
+                'value_prop_1_label' => '01 / Indeks Kualitas',
+                'value_prop_1_title' => 'Grade A Hand-Picked',
+                'value_prop_1_description' => 'Kadar air <10%, bebas residu kimia sintetis.',
+                'value_prop_2_label' => '02 / Keterlacakan',
+                'value_prop_2_title' => '100% Single-Origin',
+                'value_prop_2_description' => 'Langsung dari kebun rakyat Banda & Kerinci.',
+                'value_prop_3_label' => '03 / Distribusi Global',
+                'value_prop_3_title' => 'ISO & Phytosanitary',
+                'value_prop_3_description' => 'Dokumentasi kepabeanan ekspor komprehensif.',
+                'footer_coordinates' => 'Koordinat Asal: Maluku 3.3167° S • Sumatera 0.5897° S • Sulawesi 1.4300° S',
+                'footer_badge' => 'Sucofindo Certified',
+            ],
+            'cerita_kami' => [
+                'eyebrow_label' => 'Bab I • Asal Usul & Dedikasi',
+                'eyebrow_sub' => 'Sejarah Panjang Rempah Bumi',
+                'headline' => 'Menjaga Api Tradisi, Merawat Tanah Leluhur.',
+                'body_paragraph_1' => 'Bermula dari perairan rempah kepulauan Maluku dan pegunungan Sumatra, Refi Spice lahir dengan tekad mengembalikan kejayaan rempah Nusantara ke peta perdagangan dunia dengan transparansi penuh. Kami meyakini bahwa kualitas sejati tidak lahir dari industri massal yang tergesa, melainkan dari kesabaran tanah vulkanik, hembusan angin laut tropis, dan kearifan para petani yang diwariskan turun-temurun.',
+                'body_paragraph_2' => 'Melalui kemitraan berkeadilan bersama ratusan keluarga petani kecil di Maluku, Sulawesi, hingga Flores, setiap tangkai cengkeh dan biji pala dipetik pada tingkat kematangan optimal. Standarisasi pascapanen kami menjaga integritas senyawa bioaktif, menjamin aroma khas dan kandungan minyak esensial murni yang memenuhi standar laboratorium komoditas global.',
+                'photo_caption_title' => 'Dokumentasi Kebun Kemitraan Banda & Minahasa, 1998–Sekarang.',
+                'photo_caption_meta' => 'Pengeringan Matahari Alami • Kadar Minyak Atsiri > 11.2%',
+                'photo_badge_title' => '100% Single Origin',
+                'photo_badge_subtitle' => 'Traceable Terroir',
+                'archive_plate_no' => 'Archival Plate No. 02/ID',
+                'archive_coord' => 'Coord: 4.5262° S, 129.9042° E',
+            ],
+            'koleksi_produk' => [
+                'eyebrow_label' => 'Komoditas Primadona Kelas Ekspor',
+                'eyebrow_sub' => 'Terroir Archipelago',
+                'headline' => 'Koleksi Rempah Pilihan',
+                'body' => 'Dipetik saat kematangan optimal, disortir tangan dengan teliti, dan diawetkan secara alami tanpa bahan kimia tambahan.',
+                'available_also_label' => 'Tersedia Juga:',
+                'lab_doc_label' => 'Dokumentasi Laboratorium',
+                'lab_doc_value' => 'Sertifikat Analisis (COA) & Fitosanitari',
+                'lab_cta_label' => 'Minta Lembar Data Teknis Lengkap (COA)',
+            ],
+            'kualitas' => [
+                'eyebrow_label' => 'Standar Internasional & Rekam Jejak',
+                'headline' => 'Angka di Balik Kepercayaan Dunia',
+                'body' => 'Integritas komoditas kami dikukuhkan oleh audit laboratorium independen berulang: kromatografi gas spektrometri massa (GC-MS), pembebasan cemaran mikrobiologis, serta eliminasi mutlak residu pestisida kimia.',
+                'callout_title' => 'Single-Origin Traceability Protocol',
+                'callout_body' => 'Setiap ton kargo terindeks hingga koordinat distrik perkebunan asal di Halmahera, Flores, dan pegunungan Sumatra.',
+                'accreditation_label' => 'Akreditasi Mutu Pangan & Karantina Internasional:',
+                'document_ref' => 'Dokumen Inspeksi Komoditas Mutu No. ID-JKT-2024/REV-04',
+            ],
+            'rantai_pasok' => [
+                'eyebrow_label' => 'Integritas dari Hulu hingga Hilir',
+                'headline_plain' => 'Dari Kebun ke Dunia:',
+                'headline_emphasis' => 'Jejak Perjalanan Rempah',
+                'body' => 'Setiap butir rempah kami dapat dilacak langsung ke perkebunan asalnya, menjamin transparansi absolut bagi mitra global.',
+                'stat_1_label' => 'Single-Origin Terroir',
+                'stat_1_value' => '100% Nusantara',
+                'stat_2_label' => 'Sistem Audit',
+                'stat_2_value' => 'ISO 22000 Ready',
+                'banner_title' => 'Sistem Integritas Terverifikasi',
+                'banner_subtitle' => 'Digital Passport Commodity',
+                'banner_body' => 'Pelacakan Batch Digital (Batch QR Traceability) disertakan pada setiap kontainer pengiriman.',
+                'banner_cert_label' => 'Sertifikat Resmi',
+                'banner_cert_value' => 'Badan Karantina Indonesia',
+                'banner_doc_label' => 'Dokumen Terbit',
+                'banner_doc_value' => 'Certificate of Origin (Form A/COO)',
+            ],
+            'kemitraan' => [
+                'eyebrow_label' => 'Kolaborasi Lintas Benua',
+                'headline' => 'Dipercaya oleh Pengolah Rempah & Industri Dunia',
+                'body' => 'Menjadi mitra rantai pasok terpercaya bagi produsen bumbu gourmet, industri farmasi herbal, dan penyulingan minyak atsiri.',
+                'lot_ref' => 'Lot Accreditation // De-Hamburg Archive Ref: #892-EXP',
+                'partners_intro' => 'Rekanan Komoditas Internasional (Tahun Anggaran 2024–2025)',
+                'partners_note' => 'Kontrak Pasokan Resmi',
+                'footer_note' => 'Menyediakan volume kontrak tahunan (Annual Supply Agreement) dan opsi pengiriman FOB/CIF ke pelabuhan utama dunia.',
+                'footer_port' => 'Port of Origin: Tanjung Perak & Tanjung Priok',
+                'footer_doc' => 'Dokumen Fitosanitari & COA Terverifikasi',
             ],
             'contact' => [
+                'eyebrow' => 'Mulai Kemitraan Ekspor',
                 'headline' => 'Hubungi Divisi Ekspor & Kemitraan Dagang',
                 'body' => 'Kirimkan kebutuhan spesifikasi komoditas, estimasi tonase, dan pelabuhan tujuan untuk penawaran resmi (Quotation) dalam 24 jam kerja.',
+                'form_eyebrow' => 'Formulir Inquiry Resmi // Dokumen Permintaan Sampel',
+                'form_ref' => 'REF: EXP-2024/Q4',
+                'form_trust_note' => 'Protokol NDA & Sertifikat Fitosanitari Resmi',
+                'submit_label' => 'Kirimkan Permintaan Sampel & Penawaran',
+                'coordinates_label' => 'Koordinat Maritim Nusantara',
+                'coordinates_value' => 'LAT 6.1754° S, LONG 106.8272° E',
+                'coordinates_sub' => 'Jakarta Maritime Trading Hub • Port of Tanjung Priok',
                 'head_office_address' => 'Menara Batavia Lt. 18, Jl. K.H. Mas Mansyur, Jakarta Pusat, 10220, Indonesia.',
                 'processing_facilities' => 'Banda Neira (Kepulauan Banda, Maluku) & Amurang (Minahasa Selatan, Sulawesi Utara).',
                 'email' => 'trade@refi-spice.com',
                 'phone' => '+62 21 5708 920',
                 'whatsapp' => '+62 811 9820 400',
+                'whatsapp_caption' => 'Fast Desk Response',
                 'operational_hours' => 'Senin - Jumat, 08.00 - 18.00 WIB (GMT+7)',
+                'audit_label' => 'Audit & Lab Traceability',
+                'audit_value' => 'SGS Certified • Fumigation & Phyto Cleared',
+                'audit_badge' => 'Est. 2024',
             ],
             'footer' => [
                 'copyright' => '© 2024 PT Refi Rempah Nusantara. Seluruh Hak Cipta Dilindungi. Single-Origin Botanical Exporter, Indonesia.',
@@ -371,6 +473,7 @@ class DemoContentSeeder extends Seeder
             }
         }
     }
+
 
     private function seedSampleInquiries(): void
     {

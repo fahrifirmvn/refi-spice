@@ -15,8 +15,10 @@ class ProcessStep extends Model
     protected $fillable = [
         'step_number',
         'title',
+        'category_label',
         'description',
         'image_path',
+        'image_caption',
         'data_label',
         'data_value',
         'is_active',

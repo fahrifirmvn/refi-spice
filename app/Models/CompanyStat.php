@@ -14,6 +14,7 @@ class CompanyStat extends Model
 
     protected $fillable = [
         'label',
+        'code_label',
         'value',
         'suffix',
         'description',

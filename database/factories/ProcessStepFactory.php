@@ -20,8 +20,10 @@ class ProcessStepFactory extends Factory
         return [
             'step_number' => $this->faker->unique()->numberBetween(1, 6),
             'title' => $this->faker->sentence(3),
+            'category_label' => ucwords($this->faker->words(2, true)),
             'description' => $this->faker->paragraph(),
             'image_path' => null,
+            'image_caption' => ucwords($this->faker->words(2, true)),
             'data_label' => ucfirst($this->faker->word()),
             'data_value' => (string) $this->faker->numberBetween(1, 100),
             'is_active' => true,

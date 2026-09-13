@@ -4,6 +4,41 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Fraunces', 'Playfair Display', serif;
+    --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-label: 'Inter', ui-sans-serif, sans-serif;
+
+    --color-primary: #8c3b2e;
+    --color-bg-cream: #f2e8d8;
+    --color-bg-beige: #ede0cb;
+    --color-bg-dark: #2b1d14;
+    --color-accent-gold: #c9a961;
+    --color-text-ink: #2b1e16;
+    --color-text-muted: #6b5644;
+    --color-text-cream: #f2e8d8;
+    --color-text-cream-muted: #b8a990;
+    --color-border-hairline: rgba(43, 30, 22, 0.15);
+    --color-success: #4a7a4a;
+    --color-error: #b03a2e;
+
+    --container-heritage: 1360px;
 }
+
+/* PRD Section 3.4 — foto konten (bukan UI icon/dekorasi) pakai warm-tone,
+   sedikit desaturate agar konsisten meski sumber foto berbeda-beda. */
+.photo-heritage-grade {
+    filter: sepia(12%) saturate(92%) brightness(97%) contrast(102%);
+}
+
+/* PRD Section 8.4 — wajib respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
