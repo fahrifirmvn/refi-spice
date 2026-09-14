@@ -31,13 +31,13 @@
                     @csrf
 
                     @if (session('success'))
-                        <div class="mb-6 rounded-md border border-[var(--color-success)]/40 bg-[var(--color-success)]/10 px-4 py-3 text-sm text-[var(--color-success)]" role="status">
+                        <div class="mb-6 rounded-md border border-[var(--color-success)]/40 bg-[var(--color-success)]/10 px-4 py-3 text-sm text-[var(--color-success-text)]" role="status">
                             {{ session('success') }}
                         </div>
                     @endif
 
                     @if ($errors->any())
-                        <div class="mb-6 rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-error)]" role="alert">
+                        <div class="mb-6 rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-error-text)]" role="alert">
                             Mohon periksa kembali kolom yang ditandai di bawah ini.
                         </div>
                     @endif
@@ -63,10 +63,10 @@
                                 value="{{ old('full_name') }}"
                                 placeholder="e.g. Dr. Julian Vance"
                                 aria-describedby="full_name-error"
-                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                             >
                             @error('full_name')
-                                <p id="full_name-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                <p id="full_name-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -82,10 +82,10 @@
                                         value="{{ old('company_name') }}"
                                         placeholder="e.g. Batavia Botanicals Ltd."
                                         aria-describedby="company_name-error"
-                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                                     >
                                     @error('company_name')
-                                        <p id="company_name-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                        <p id="company_name-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="w-1/2">
@@ -97,10 +97,10 @@
                                         value="{{ old('destination_country') }}"
                                         placeholder="e.g. Rotterdam, NL"
                                         aria-describedby="destination_country-error"
-                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                                     >
                                     @error('destination_country')
-                                        <p id="destination_country-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                        <p id="destination_country-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                 id="commodity_interest"
                                 name="commodity_interest"
                                 aria-describedby="commodity_interest-error"
-                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                             >
                                 <option value="">Pilih Varian Komoditas</option>
                                 @foreach ($commodityOptions as $option)
@@ -120,7 +120,7 @@
                                 @endforeach
                             </select>
                             @error('commodity_interest')
-                                <p id="commodity_interest-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                <p id="commodity_interest-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -130,7 +130,7 @@
                                 id="volume_estimate"
                                 name="volume_estimate"
                                 aria-describedby="volume_estimate-error"
-                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                             >
                                 <option value="">Pilih Skala Pengapalan</option>
                                 @foreach ($volumeOptions as $option)
@@ -138,7 +138,7 @@
                                 @endforeach
                             </select>
                             @error('volume_estimate')
-                                <p id="volume_estimate-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                <p id="volume_estimate-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -150,10 +150,10 @@
                                 rows="3"
                                 placeholder="Cantumkan standar kadar air, sertifikasi yang dibutuhkan (USDA/EU Organic, Kosher, Halal), atau spesifikasi potongan..."
                                 aria-describedby="additional_notes-error"
-                                class="mt-2 w-full resize-none border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                class="mt-2 w-full resize-none border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
                             >{{ old('additional_notes') }}</textarea>
                             @error('additional_notes')
-                                <p id="additional_notes-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                <p id="additional_notes-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>

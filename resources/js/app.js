@@ -1,7 +1,10 @@
 import Alpine from 'alpinejs';
 import AOS from 'aos';
 import gsap from 'gsap';
-import 'aos/dist/aos.css';
+// PRD Section 8.4/10.2 — aos/dist/aos.css is NOT imported here: it is ~26KB
+// and ~97% unused (this project only ever uses data-aos="fade-up"), which
+// Lighthouse flagged under unused-css-rules. An equivalent minimal
+// [data-aos] ruleset lives in resources/css/app.css instead.
 
 window.Alpine = Alpine;
 

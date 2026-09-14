@@ -23,6 +23,7 @@ class HomeController extends Controller
     {
         return view('home', [
             'brand' => PageContent::query()->where('section_key', 'brand')->pluck('field_value', 'field_key'),
+            'seo' => PageContent::query()->where('section_key', 'seo')->pluck('field_value', 'field_key'),
             'hero' => PageContent::query()->where('section_key', 'hero')->pluck('field_value', 'field_key'),
             'ceritaKami' => PageContent::query()->where('section_key', 'cerita_kami')->pluck('field_value', 'field_key'),
             'koleksiProduk' => PageContent::query()->where('section_key', 'koleksi_produk')->pluck('field_value', 'field_key'),

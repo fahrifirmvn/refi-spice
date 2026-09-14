@@ -20,6 +20,11 @@
     --color-border-hairline: rgba(43, 30, 22, 0.15);
     --color-success: #4a7a4a;
     --color-error: #b03a2e;
+    /* Darker variants used specifically for TEXT rendered on the tinted
+       (10% opacity) success/error banner backgrounds below — the base
+       tokens above fail WCAG AA (4.5:1) at that low opacity (PRD 9.2). */
+    --color-success-text: #3b623b;
+    --color-error-text: #8d2e25;
 
     --container-heritage: 1360px;
 }
@@ -42,3 +47,68 @@
     }
 }
 
+
+/* PRD Section 8.4 -- scroll-reveal (fade-up) support.
+   Replaces the aos/dist/aos.css import (previously ~26KB, ~97% unused per
+   Lighthouse unused-css-rules -- this project only ever uses
+   data-aos="fade-up" with the global 700ms / ease-out-cubic default set in
+   resources/js/app.js AOS.init()). Values below match aos/src/sass 1:1 so
+   the rendered animation is unchanged; only the unused bulk (other fade
+   directions, duration variants, delay increments up to 3000ms) is dropped. */
+[data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0s;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+[data-aos="fade-up"] {
+    transform: translate3d(0, 100px, 0);
+}
+
+[data-aos][data-aos-delay="50"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="50"].aos-animate { transition-delay: 50ms; }
+[data-aos][data-aos-delay="100"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="100"].aos-animate { transition-delay: 100ms; }
+[data-aos][data-aos-delay="150"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="150"].aos-animate { transition-delay: 150ms; }
+[data-aos][data-aos-delay="200"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="200"].aos-animate { transition-delay: 200ms; }
+[data-aos][data-aos-delay="250"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="250"].aos-animate { transition-delay: 250ms; }
+[data-aos][data-aos-delay="300"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="300"].aos-animate { transition-delay: 300ms; }
+[data-aos][data-aos-delay="350"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="350"].aos-animate { transition-delay: 350ms; }
+[data-aos][data-aos-delay="400"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="400"].aos-animate { transition-delay: 400ms; }
+[data-aos][data-aos-delay="450"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="450"].aos-animate { transition-delay: 450ms; }
+[data-aos][data-aos-delay="500"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="500"].aos-animate { transition-delay: 500ms; }
+[data-aos][data-aos-delay="550"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="550"].aos-animate { transition-delay: 550ms; }
+[data-aos][data-aos-delay="600"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="600"].aos-animate { transition-delay: 600ms; }
+[data-aos][data-aos-delay="650"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="650"].aos-animate { transition-delay: 650ms; }
+[data-aos][data-aos-delay="700"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="700"].aos-animate { transition-delay: 700ms; }
+[data-aos][data-aos-delay="750"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="750"].aos-animate { transition-delay: 750ms; }
+[data-aos][data-aos-delay="800"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="800"].aos-animate { transition-delay: 800ms; }
+[data-aos][data-aos-delay="850"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="850"].aos-animate { transition-delay: 850ms; }
+[data-aos][data-aos-delay="900"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="900"].aos-animate { transition-delay: 900ms; }
+[data-aos][data-aos-delay="950"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="950"].aos-animate { transition-delay: 950ms; }
+[data-aos][data-aos-delay="1000"] { transition-delay: 0s; }
+[data-aos][data-aos-delay="1000"].aos-animate { transition-delay: 1000ms; }

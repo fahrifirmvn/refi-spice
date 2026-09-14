@@ -34,17 +34,17 @@
         <div class="mt-16 grid w-full max-w-4xl grid-cols-1 gap-10 border-t border-[var(--color-border-hairline)] pt-10 text-left sm:grid-cols-3">
             <div data-aos="fade-up">
                 <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">{{ $hero['value_prop_1_label'] ?? '' }}</p>
-                <h3 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_1_title'] ?? '' }}</h3>
+                <h2 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_1_title'] ?? '' }}</h2>
                 <p class="mt-2 text-sm text-[var(--color-text-muted)]">{{ $hero['value_prop_1_description'] ?? '' }}</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="100">
                 <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">{{ $hero['value_prop_2_label'] ?? '' }}</p>
-                <h3 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_2_title'] ?? '' }}</h3>
+                <h2 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_2_title'] ?? '' }}</h2>
                 <p class="mt-2 text-sm text-[var(--color-text-muted)]">{{ $hero['value_prop_2_description'] ?? '' }}</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200">
                 <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">{{ $hero['value_prop_3_label'] ?? '' }}</p>
-                <h3 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_3_title'] ?? '' }}</h3>
+                <h2 class="mt-3 font-heading text-xl text-[var(--color-text-ink)]">{{ $hero['value_prop_3_title'] ?? '' }}</h2>
                 <p class="mt-2 text-sm text-[var(--color-text-muted)]">{{ $hero['value_prop_3_description'] ?? '' }}</p>
             </div>
         </div>

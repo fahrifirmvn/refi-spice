@@ -357,6 +357,11 @@ class DemoContentSeeder extends Seeder
             'brand' => [
                 'tagline' => 'Single-Origin Botanical Exporter • Indonesia',
             ],
+            'seo' => [
+                'meta_title' => 'Refi Spice — Eksportir Pala & Cengkeh Single-Origin Nusantara',
+                'meta_description' => 'PT Refi Rempah Nusantara mengekspor pala dan cengkeh single-origin bersertifikasi dari Maluku dan Sulawesi untuk buyer B2B industri F&B, farmasi, dan distribusi internasional.',
+                'og_image_path' => '',
+            ],
             'hero' => [
                 'eyebrow' => 'Komoditas Rempah Single-Origin Nusantara',
                 'headline' => 'Warisan Rempah, Cerita Dunia.',

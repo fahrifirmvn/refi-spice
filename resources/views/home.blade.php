@@ -1,4 +1,4 @@
-<x-layout.app :brand="$brand">
+<x-layout.app :brand="$brand" :seo="$seo" :contact="$contact">
     <x-section.hero :hero="$hero" />
 
     <x-section.cerita-kami :content="$ceritaKami" :milestones="$milestones" />
