@@ -131,6 +131,16 @@ return [
             'handler' => NullHandler::class,
         ],
 
+        // PRD Section 12.3 — dedicated channel so mail delivery failures are
+        // easy to audit/monitor separately from general application logs.
+        'mail' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/mail.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'max_files' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true,
+        ],
+
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
