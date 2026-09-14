@@ -3,7 +3,7 @@
 <section id="kualitas" class="bg-[var(--color-bg-dark)] px-6 py-20 sm:py-24">
     <div class="mx-auto max-w-(--container-heritage)">
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
-            <div>
+            <div data-aos="fade-up">
                 <div class="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--color-accent-gold)]">
                     <span class="h-px w-8 bg-[var(--color-accent-gold)]/50"></span>
                     <span>{{ $content['eyebrow_label'] ?? '' }}</span>
@@ -33,13 +33,15 @@
 
             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 @foreach ($companyStats as $stat)
-                    <div class="rounded-lg border border-white/10 bg-white/[0.03] p-6">
+                    <div data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}" class="rounded-lg border border-white/10 bg-white/[0.03] p-6">
                         <div class="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-cream-muted)]">
                             <span>{{ $stat->code_label }}</span>
                             <span>{{ sprintf('Sec // %02d', $loop->iteration) }}</span>
                         </div>
 
-                        <p class="mt-4 font-heading text-4xl text-[var(--color-accent-gold)]">{{ $stat->value }}{{ $stat->suffix }}</p>
+                        <p class="mt-4 font-heading text-4xl text-[var(--color-accent-gold)]">
+                            <span data-count-up="{{ $stat->value }}">0</span>{{ $stat->suffix }}
+                        </p>
                         <p class="mt-2 text-sm font-medium text-[var(--color-text-cream)]">{{ $stat->label }}</p>
 
                         <p class="mt-3 border-t border-white/10 pt-3 text-xs leading-relaxed text-[var(--color-text-cream-muted)]">{{ $stat->description }}</p>
@@ -49,7 +51,7 @@
         </div>
 
         <div class="mt-16 flex flex-col gap-6 border-t border-white/10 pt-10 lg:flex-row lg:items-center lg:justify-between">
-            <div>
+            <div data-aos="fade-up">
                 <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--color-text-cream-muted)]">{{ $content['accreditation_label'] ?? '' }}</p>
                 <div class="mt-4 flex flex-wrap gap-3">
                     @foreach ($certifications as $certification)

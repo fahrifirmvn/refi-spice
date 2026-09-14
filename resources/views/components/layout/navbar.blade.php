@@ -12,9 +12,21 @@
 @endphp
 
 <header
-    x-data="{ mobileOpen: false }"
-    class="sticky top-0 z-50 border-b border-[var(--color-border-hairline)] bg-[var(--color-bg-cream)]/95 backdrop-blur"
+    x-data="{ mobileOpen: false, scrolled: false }"
+    x-init="
+        scrolled = window.scrollY > 24;
+        window.addEventListener('scroll', () => { scrolled = window.scrollY > 24 }, { passive: true });
+    "
+    :class="scrolled
+        ? 'border-b border-[var(--color-border-hairline)] bg-[var(--color-bg-cream)]/95 backdrop-blur'
+        : 'border-b border-transparent bg-transparent'"
+    class="sticky top-0 z-50 transition-colors duration-300"
 >
+    {{-- PRD Section 8.4 — GSAP-driven scroll progress indicator --}}
+    <div class="absolute inset-x-0 top-0 h-[2px] bg-[var(--color-border-hairline)]/40">
+        <div data-scroll-progress class="h-full w-0 bg-[var(--color-primary)]"></div>
+    </div>
+
     <div class="mx-auto flex max-w-(--container-heritage) items-center justify-between gap-4 px-6 py-4">
         <a href="/" class="flex items-center gap-3">
             <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-primary)] text-[var(--color-primary)]" aria-hidden="true">
@@ -33,7 +45,7 @@
 
         <nav class="hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
             @foreach ($navLinks as $link)
-                <a href="{{ $link['href'] }}" class="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]">
+                <a href="{{ $link['href'] }}" class="relative py-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)] transition-colors duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[var(--color-primary)] after:transition-transform after:duration-200 hover:text-[var(--color-primary)] hover:after:scale-x-100">
                     {{ $link['label'] }}
                 </a>
             @endforeach
@@ -44,17 +56,18 @@
                 href="#"
                 aria-disabled="true"
                 title="Unduh katalog akan tersedia segera"
-                class="rounded-full border border-[var(--color-border-hairline)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                class="rounded-full border border-[var(--color-border-hairline)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
             >
                 Unduh Katalog
             </a>
             <a
                 href="#kontak"
-                class="rounded-full bg-[var(--color-primary)] px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-opacity hover:opacity-90"
+                class="rounded-full bg-[var(--color-primary)] px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-all duration-200 hover:scale-[1.02] hover:opacity-90"
             >
                 Inquiry Ekspor &rarr;
             </a>
         </div>
+
 
         <button
             type="button"

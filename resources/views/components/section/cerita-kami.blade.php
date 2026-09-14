@@ -4,7 +4,7 @@
     <div class="mx-auto max-w-(--container-heritage)">
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
             {{-- Archive photo frame --}}
-            <div class="lg:col-span-4">
+            <div data-aos="fade-up" class="lg:col-span-4">
                 <div class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-cream)] p-3">
                     <div class="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                         <span>{{ $content['archive_plate_no'] ?? '' }}</span>
@@ -29,7 +29,7 @@
             </div>
 
             {{-- Narrative --}}
-            <div class="lg:col-span-5">
+            <div data-aos="fade-up" data-aos-delay="100" class="lg:col-span-5">
                 <div class="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)]">
                     <span>{{ $content['eyebrow_label'] ?? '' }}</span>
                     <span class="h-px flex-1 bg-[var(--color-border-hairline)]"></span>
@@ -65,10 +65,10 @@
             </div>
 
             {{-- Milestones timeline --}}
-            <div class="lg:col-span-3">
+            <div data-aos="fade-up" data-aos-delay="200" class="lg:col-span-3">
                 <ol class="space-y-8 border-l border-[var(--color-border-hairline)] pl-6">
                     @foreach ($milestones as $milestone)
-                        <li class="relative">
+                        <li data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 90 }}" class="relative">
                             <span class="absolute -left-[27px] top-1.5 h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
                             <p class="font-heading text-lg text-[var(--color-primary)]">{{ $milestone->year }}</p>
                             <p class="mt-1 text-sm font-semibold leading-snug text-[var(--color-text-ink)]">{{ $milestone->title }}</p>

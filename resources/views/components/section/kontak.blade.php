@@ -8,7 +8,7 @@
 
 <section id="kontak" class="bg-[var(--color-bg-cream)] px-6 py-20 sm:py-24">
     <div class="mx-auto max-w-(--container-heritage)">
-        <div class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-hairline)] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">
+        <div data-aos="fade-up" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-hairline)] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">
             <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5">
                 <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
                 <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" stroke="currentColor" stroke-width="1.5" />
@@ -16,19 +16,37 @@
             {{ $content['eyebrow'] ?? '' }}
         </div>
 
-        <h2 class="mt-5 max-w-2xl font-heading text-3xl leading-tight text-[var(--color-text-ink)] sm:text-4xl">
+        <h2 data-aos="fade-up" class="mt-5 max-w-2xl font-heading text-3xl leading-tight text-[var(--color-text-ink)] sm:text-4xl">
             {{ $content['headline'] ?? '' }}
         </h2>
 
-        <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-muted)]">
+        <p data-aos="fade-up" class="mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-muted)]">
             {{ $content['body'] ?? '' }}
         </p>
 
         <div class="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
             {{-- Inquiry form --}}
-            <div class="lg:col-span-7">
-                <form method="POST" action="#" class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-6 sm:p-8">
+            <div data-aos="fade-up" class="lg:col-span-7">
+                <form method="POST" action="{{ route('inquiry.store') }}" class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-6 sm:p-8" novalidate>
                     @csrf
+
+                    @if (session('success'))
+                        <div class="mb-6 rounded-md border border-[var(--color-success)]/40 bg-[var(--color-success)]/10 px-4 py-3 text-sm text-[var(--color-success)]" role="status">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="mb-6 rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-error)]" role="alert">
+                            Mohon periksa kembali kolom yang ditandai di bawah ini.
+                        </div>
+                    @endif
+
+                    {{-- Honeypot: hidden from real users, left empty; bots that auto-fill it are silently rejected server-side --}}
+                    <div class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                        <label for="website">Jangan diisi</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
 
                     <div class="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-muted)]">
                         <span>{{ $content['form_eyebrow'] ?? '' }}</span>
@@ -42,28 +60,49 @@
                                 type="text"
                                 id="full_name"
                                 name="full_name"
+                                value="{{ old('full_name') }}"
                                 placeholder="e.g. Dr. Julian Vance"
+                                aria-describedby="full_name-error"
                                 class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
                             >
+                            @error('full_name')
+                                <p id="full_name-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <span class="text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">Perusahaan &amp; Negara Tujuan *</span>
                             <div class="mt-2 flex gap-3">
-                                <input
-                                    type="text"
-                                    id="company_name"
-                                    name="company_name"
-                                    placeholder="e.g. Batavia Botanicals Ltd."
-                                    class="w-1/2 border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
-                                >
-                                <input
-                                    type="text"
-                                    id="destination_country"
-                                    name="destination_country"
-                                    placeholder="e.g. Rotterdam, NL"
-                                    class="w-1/2 border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
-                                >
+                                <div class="w-1/2">
+                                    <label for="company_name" class="sr-only">Nama Perusahaan</label>
+                                    <input
+                                        type="text"
+                                        id="company_name"
+                                        name="company_name"
+                                        value="{{ old('company_name') }}"
+                                        placeholder="e.g. Batavia Botanicals Ltd."
+                                        aria-describedby="company_name-error"
+                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                    >
+                                    @error('company_name')
+                                        <p id="company_name-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="w-1/2">
+                                    <label for="destination_country" class="sr-only">Negara Tujuan</label>
+                                    <input
+                                        type="text"
+                                        id="destination_country"
+                                        name="destination_country"
+                                        value="{{ old('destination_country') }}"
+                                        placeholder="e.g. Rotterdam, NL"
+                                        aria-describedby="destination_country-error"
+                                        class="w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
+                                    >
+                                    @error('destination_country')
+                                        <p id="destination_country-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
@@ -72,13 +111,17 @@
                             <select
                                 id="commodity_interest"
                                 name="commodity_interest"
+                                aria-describedby="commodity_interest-error"
                                 class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline-none"
                             >
                                 <option value="">Pilih Varian Komoditas</option>
                                 @foreach ($commodityOptions as $option)
-                                    <option value="{{ $option }}">{{ $option }}</option>
+                                    <option value="{{ $option }}" @selected(old('commodity_interest') === $option)>{{ $option }}</option>
                                 @endforeach
                             </select>
+                            @error('commodity_interest')
+                                <p id="commodity_interest-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -86,13 +129,17 @@
                             <select
                                 id="volume_estimate"
                                 name="volume_estimate"
+                                aria-describedby="volume_estimate-error"
                                 class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] focus:border-[var(--color-primary)] focus:outline-none"
                             >
                                 <option value="">Pilih Skala Pengapalan</option>
                                 @foreach ($volumeOptions as $option)
-                                    <option value="{{ $option }}">{{ $option }}</option>
+                                    <option value="{{ $option }}" @selected(old('volume_estimate') === $option)>{{ $option }}</option>
                                 @endforeach
                             </select>
+                            @error('volume_estimate')
+                                <p id="volume_estimate-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="sm:col-span-2">
@@ -102,8 +149,12 @@
                                 name="additional_notes"
                                 rows="3"
                                 placeholder="Cantumkan standar kadar air, sertifikasi yang dibutuhkan (USDA/EU Organic, Kosher, Halal), atau spesifikasi potongan..."
+                                aria-describedby="additional_notes-error"
                                 class="mt-2 w-full resize-none border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline-none"
-                            ></textarea>
+                            >{{ old('additional_notes') }}</textarea>
+                            @error('additional_notes')
+                                <p id="additional_notes-error" class="mt-1 text-xs text-[var(--color-error)]">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -117,7 +168,7 @@
 
                         <button
                             type="submit"
-                            class="whitespace-nowrap rounded-md bg-[var(--color-primary)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-opacity hover:opacity-90"
+                            class="whitespace-nowrap rounded-md bg-[var(--color-primary)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-all duration-200 hover:scale-[1.02] hover:opacity-90"
                         >
                             {{ $content['submit_label'] ?? 'Kirim' }} &rarr;
                         </button>
@@ -126,7 +177,7 @@
             </div>
 
             {{-- Contact details --}}
-            <div class="flex flex-col gap-6 lg:col-span-5">
+            <div data-aos="fade-up" data-aos-delay="100" class="flex flex-col gap-6 lg:col-span-5">
                 <div class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-5">
                     <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.06em] text-[var(--color-primary)]">
                         <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
@@ -188,11 +239,11 @@
             </div>
 
             <nav class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium uppercase tracking-[0.04em] text-[var(--color-text-cream-muted)]" aria-label="Navigasi footer">
-                <a href="#" class="hover:text-[var(--color-accent-gold)]">Spesifikasi Komoditas</a>
-                <a href="#" class="hover:text-[var(--color-accent-gold)]">Sertifikasi Fitosanitari</a>
-                <a href="#" class="hover:text-[var(--color-accent-gold)]">Ketentuan Ekspor</a>
-                <a href="#" class="hover:text-[var(--color-accent-gold)]">Dokumentasi Asal Usul</a>
-                <a href="#" class="hover:text-[var(--color-accent-gold)]">Kebijakan Privasi</a>
+                <a href="#" class="transition-colors duration-200 hover:text-[var(--color-accent-gold)]">Spesifikasi Komoditas</a>
+                <a href="#" class="transition-colors duration-200 hover:text-[var(--color-accent-gold)]">Sertifikasi Fitosanitari</a>
+                <a href="#" class="transition-colors duration-200 hover:text-[var(--color-accent-gold)]">Ketentuan Ekspor</a>
+                <a href="#" class="transition-colors duration-200 hover:text-[var(--color-accent-gold)]">Dokumentasi Asal Usul</a>
+                <a href="#" class="transition-colors duration-200 hover:text-[var(--color-accent-gold)]">Kebijakan Privasi</a>
             </nav>
         </div>
     </footer>

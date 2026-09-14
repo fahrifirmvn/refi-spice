@@ -3,7 +3,7 @@
 <section id="rantai-pasok" class="bg-[var(--color-bg-cream)] px-6 py-20 sm:py-24">
     <div class="mx-auto max-w-(--container-heritage)">
         <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-            <div class="max-w-xl">
+            <div data-aos="fade-up" class="max-w-xl">
                 <div class="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)]">
                     <span class="h-px w-8 bg-[var(--color-primary)]/40"></span>
                     <span>{{ $content['eyebrow_label'] ?? '' }}</span>
@@ -33,7 +33,7 @@
 
         <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($processSteps as $step)
-                <div class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-5">
+                <div data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}" class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-5">
                     <div class="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-muted)]">
                         <span>{{ sprintf('Tahap %s', ['I', 'II', 'III', 'IV'][$loop->index] ?? $loop->iteration) }}</span>
                         <span class="rounded border border-[var(--color-border-hairline)] px-2 py-0.5">{{ sprintf('Lot No. %02d', $step->step_number) }}</span>
