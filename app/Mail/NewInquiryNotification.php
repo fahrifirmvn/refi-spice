@@ -6,6 +6,7 @@ use App\Models\Inquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -17,13 +18,26 @@ class NewInquiryNotification extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public Inquiry $inquiry)
+    public int $tries = 3;
+
+    public int $timeout = 30;
+
+    public function __construct(public Inquiry $inquiry) {}
+
+    /**
+     * @return array<int, int>
+     */
+    public function backoff(): array
     {
+        return [60, 300];
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
+            replyTo: $this->inquiry->email
+                ? [new Address($this->inquiry->email, $this->inquiry->full_name)]
+                : [],
             subject: sprintf(
                 'Inquiry Ekspor Baru — %s (%s)',
                 $this->inquiry->commodity_interest,
@@ -36,36 +50,31 @@ class NewInquiryNotification extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'emails.inquiries.new-inquiry',
+            text: 'emails.inquiries.new-inquiry-text',
             with: ['inquiry' => $this->inquiry],
         );
     }
 
     /**
-     * Send the message, recording the outcome on the inquiry itself (PRD 12.2)
-     * so a delivery failure never bubbles up as an HTTP error to the user.
+     * Record accepted deliveries while allowing transient transport failures to
+     * bubble to the queue worker for retry.
      */
     public function send($mailer): mixed
     {
-        try {
-            $sent = parent::send($mailer);
+        $sent = parent::send($mailer);
 
-            $this->inquiry->forceFill([
-                'email_sent_at' => now(),
-                'email_failed_reason' => null,
-            ])->save();
+        $this->inquiry->markEmailDelivered();
 
-            return $sent;
-        } catch (Throwable $e) {
-            Log::channel('mail')->error('Failed to send new inquiry notification email.', [
-                'inquiry_id' => $this->inquiry->id,
-                'exception' => $e->getMessage(),
-            ]);
+        return $sent;
+    }
 
-            $this->inquiry->forceFill([
-                'email_failed_reason' => Str::limit($e->getMessage(), 2000),
-            ])->save();
+    public function failed(Throwable $exception): void
+    {
+        Log::channel('mail')->error('Inquiry notification email exhausted all delivery attempts.', [
+            'inquiry_id' => $this->inquiry->id,
+            'exception' => $exception->getMessage(),
+        ]);
 
-            return null;
-        }
+        $this->inquiry->markEmailFailed(Str::limit($exception->getMessage(), 2000));
     }
 }

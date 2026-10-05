@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasActiveScope;
+use App\Models\Concerns\HasContentImage;
 use App\Models\Concerns\HasOrder;
+use Database\Factories\ProcessStepFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
 
-class ProcessStep extends Model
+class ProcessStep extends Model implements HasMedia
 {
-    /** @use HasFactory<\Database\Factories\ProcessStepFactory> */
-    use HasActiveScope, HasFactory, HasOrder;
+    /** @use HasFactory<ProcessStepFactory> */
+    use HasActiveScope, HasContentImage, HasFactory, HasOrder;
 
     protected $fillable = [
         'step_number',
@@ -18,6 +21,7 @@ class ProcessStep extends Model
         'category_label',
         'description',
         'image_path',
+        'image_alt',
         'image_caption',
         'data_label',
         'data_value',
@@ -30,4 +34,14 @@ class ProcessStep extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    protected function contentImageCollectionName(): string
+    {
+        return 'illustration';
+    }
+
+    protected function legacyContentImageAttribute(): string
+    {
+        return 'image_path';
+    }
 }

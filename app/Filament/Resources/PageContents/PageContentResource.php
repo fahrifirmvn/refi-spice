@@ -14,12 +14,29 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use UnitEnum;
 
 class PageContentResource extends Resource
 {
     protected static ?string $model = PageContent::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+
+    protected static ?string $navigationLabel = 'Ubah Isi Website';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
+
+    protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return 'Isi Website';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Isi Website';
+    }
 
     public static function form(Schema $schema): Schema
     {

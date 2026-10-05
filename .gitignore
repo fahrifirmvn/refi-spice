@@ -28,3 +28,11 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+.vercel
+.env*
+.agents/
+.claude/
+.pi/
+.mcp.json
+boost.json
+opencode.json

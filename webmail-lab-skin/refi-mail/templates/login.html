@@ -1,0 +1,24 @@
+<roundcube:include file="includes/layout.html" />
+
+<h1 class="voice"><roundcube:object name="productname" /> <roundcube:label name="login" /></h1>
+
+<div id="layout-content" class="selected no-navbar" role="main">
+	<div class="refi-login-intro">
+		<div class="refi-login-brand">
+			<span class="refi-login-mark" aria-hidden="true">R</span>
+			<span class="refi-login-name">Refi Mail</span>
+		</div>
+		<h2 class="refi-login-title">Masuk ke email kerja</h2>
+		<p class="refi-login-description">Gunakan alamat email kantor dan kata sandi Anda.</p>
+	</div>
+	<roundcube:form id="login-form" name="login-form" method="post" class="propform">
+		<roundcube:object name="loginform" form="login-form" size="40" submit=true class="form-control" />
+		<p class="refi-login-help">Masalah login? Hubungi administrator infrastruktur melalui jalur yang telah disepakati.</p>
+	</form>
+</div>
+
+<noscript>
+	<p class="noscriptwarning"><roundcube:label name="noscriptwarning" /></p>
+</noscript>
+
+<roundcube:include file="includes/footer.html" />

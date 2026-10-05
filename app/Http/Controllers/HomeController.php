@@ -9,7 +9,6 @@ use App\Models\PageContent;
 use App\Models\Partner;
 use App\Models\ProcessStep;
 use App\Models\Product;
-use App\Models\ProductTag;
 use App\Models\Testimonial;
 use Illuminate\View\View;
 
@@ -21,30 +20,47 @@ class HomeController extends Controller
      */
     public function index(): View
     {
+        $pageContents = PageContent::query()->with('media')->get();
+        $contentsBySection = $pageContents
+            ->groupBy('section_key')
+            ->map(fn ($sectionContents) => $sectionContents->pluck('field_value', 'field_key'));
+        $seo = $contentsBySection->get('seo', collect());
+        $openGraphImage = $pageContents->first(
+            fn (PageContent $pageContent): bool => $pageContent->isOpenGraphImageField()
+        );
+
+        $seo->put('og_image_url', $openGraphImage?->openGraphImageUrl());
+
         return view('home', [
-            'brand' => PageContent::query()->where('section_key', 'brand')->pluck('field_value', 'field_key'),
-            'seo' => PageContent::query()->where('section_key', 'seo')->pluck('field_value', 'field_key'),
-            'hero' => PageContent::query()->where('section_key', 'hero')->pluck('field_value', 'field_key'),
-            'ceritaKami' => PageContent::query()->where('section_key', 'cerita_kami')->pluck('field_value', 'field_key'),
-            'koleksiProduk' => PageContent::query()->where('section_key', 'koleksi_produk')->pluck('field_value', 'field_key'),
-            'kualitas' => PageContent::query()->where('section_key', 'kualitas')->pluck('field_value', 'field_key'),
-            'rantaiPasok' => PageContent::query()->where('section_key', 'rantai_pasok')->pluck('field_value', 'field_key'),
-            'kemitraan' => PageContent::query()->where('section_key', 'kemitraan')->pluck('field_value', 'field_key'),
-            'contact' => PageContent::query()->where('section_key', 'contact')->pluck('field_value', 'field_key'),
-            'footer' => PageContent::query()->where('section_key', 'footer')->pluck('field_value', 'field_key'),
+            'brand' => $contentsBySection->get('brand', collect()),
+            'seo' => $seo,
+            'hero' => $contentsBySection->get('hero', collect()),
+            'ceritaKami' => $contentsBySection->get('cerita_kami', collect()),
+            'koleksiProduk' => $contentsBySection->get('koleksi_produk', collect()),
+            'kualitas' => $contentsBySection->get('kualitas', collect()),
+            'rantaiPasok' => $contentsBySection->get('rantai_pasok', collect()),
+            'kemitraan' => $contentsBySection->get('kemitraan', collect()),
+            'contact' => $contentsBySection->get('contact', collect()),
+            'footer' => $contentsBySection->get('footer', collect()),
             'milestones' => Milestone::active()->ordered()->get(),
-            'featuredProducts' => Product::active()->ordered()->with('specifications')->where('is_featured', true)->get(),
+            'featuredProducts' => Product::active()
+                ->ordered()
+                ->with([
+                    'media',
+                    'specifications',
+                    'tags' => fn ($query) => $query->active()->ordered(),
+                ])
+                ->where('is_featured', true)
+                ->get(),
             'otherProducts' => Product::active()->ordered()->where('is_featured', false)->get(),
             'products' => Product::active()->ordered()->with('specifications')->get(),
-            'productTags' => ProductTag::active()->ordered()->get(),
             'companyStats' => CompanyStat::active()->ordered()->get(),
-            'certifications' => Certification::active()->ordered()->get(),
-            'processSteps' => ProcessStep::active()->ordered()->get(),
-            'testimonials' => Testimonial::active()->ordered()->get(),
-            'partners' => Partner::active()->ordered()->get(),
+            'certifications' => Certification::active()->approvedForPublic()->ordered()->with('media')->get(),
+            'processSteps' => ProcessStep::active()->ordered()->with('media')->get(),
+            'testimonials' => Testimonial::active()->approvedForPublic()->ordered()->get(),
+            'partners' => Partner::active()->ordered()->with('media')->get(),
             'commodityOptions' => Product::active()->ordered()->pluck('name'),
             'volumeOptions' => ['1-5 MT', '5-20 MT', '20+ MT'],
         ]);
-
     }
 }

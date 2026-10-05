@@ -20,6 +20,8 @@ class StoreInquiryRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:150'],
+            'email' => ['required', 'email', 'max:254'],
+            'phone' => ['nullable', 'string', 'max:50'],
             'company_name' => ['required', 'string', 'max:150'],
             'destination_country' => ['required', 'string', 'max:150'],
             'commodity_interest' => ['required', 'string', 'max:150', Rule::in(Product::query()->active()->pluck('name'))],
@@ -32,6 +34,9 @@ class StoreInquiryRequest extends FormRequest
     {
         return [
             'full_name.required' => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Alamat email wajib diisi agar tim kami dapat menghubungi Anda.',
+            'email.email' => 'Masukkan alamat email yang valid.',
+            'phone.max' => 'Nomor telepon maksimal 50 karakter.',
             'company_name.required' => 'Nama perusahaan wajib diisi.',
             'destination_country.required' => 'Negara tujuan wajib diisi.',
             'commodity_interest.required' => 'Komoditas yang diminati wajib dipilih.',

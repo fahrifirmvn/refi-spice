@@ -13,12 +13,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CertificationResource extends Resource
 {
     protected static ?string $model = Certification::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
+
+    protected static ?string $navigationLabel = 'Sertifikasi & Akreditasi';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
+
+    protected static ?int $navigationSort = 5;
+
+    public static function getModelLabel(): string
+    {
+        return 'Sertifikasi';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Sertifikasi & Akreditasi';
+    }
 
     public static function form(Schema $schema): Schema
     {

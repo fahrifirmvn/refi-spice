@@ -20,10 +20,11 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::query()->updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@refi-spice.local')],
+            ['email' => env('ADMIN_EMAIL', 'admin@refi-spice.com')],
             [
                 'name' => 'Refi Spice Admin',
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'RefiSpice2026!AdminPanel')),
+                'role' => User::ROLE_SUPER_ADMIN,
                 'email_verified_at' => now(),
             ]
         );

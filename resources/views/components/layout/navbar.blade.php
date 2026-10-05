@@ -45,7 +45,7 @@
 
         <nav class="hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
             @foreach ($navLinks as $link)
-                <a href="{{ $link['href'] }}" class="relative py-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)] transition-colors duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[var(--color-primary)] after:transition-transform after:duration-200 hover:text-[var(--color-primary)] hover:after:scale-x-100">
+                <a href="{{ $link['href'] }}" class="relative whitespace-nowrap py-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-text-muted)] transition-colors duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[var(--color-primary)] after:transition-transform after:duration-200 hover:text-[var(--color-primary)] hover:after:scale-x-100">
                     {{ $link['label'] }}
                 </a>
             @endforeach

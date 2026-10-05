@@ -29,6 +29,20 @@
                                     <td style="padding:8px 0;">{{ $inquiry->full_name }}</td>
                                 </tr>
                                 <tr>
+                                    <td style="padding:8px 0; color:#7a5230; font-weight:bold; vertical-align:top;">Email Buyer</td>
+                                    <td style="padding:8px 0;">
+                                        @if ($inquiry->email)
+                                            <a href="mailto:{{ $inquiry->email }}" style="color:#7a5230;">{{ $inquiry->email }}</a>
+                                        @else
+                                            —
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 0; color:#7a5230; font-weight:bold; vertical-align:top;">Telepon / WhatsApp</td>
+                                    <td style="padding:8px 0;">{{ $inquiry->phone ?: '—' }}</td>
+                                </tr>
+                                <tr>
                                     <td style="padding:8px 0; color:#7a5230; font-weight:bold; vertical-align:top;">Perusahaan</td>
                                     <td style="padding:8px 0;">{{ $inquiry->company_name }}</td>
                                 </tr>
@@ -59,6 +73,11 @@
                     </tr>
                     <tr>
                         <td style="padding:16px 32px 24px; border-top:1px solid #d8d0bd;">
+                            <p style="margin:0 0 12px;">
+                                <a href="{{ route('filament.admin.resources.inquiries.edit', ['record' => $inquiry]) }}" style="display:inline-block; padding:10px 16px; background-color:#7a5230; color:#ffffff; text-decoration:none; font-size:13px; font-weight:bold; border-radius:4px;">
+                                    Buka Detail di Panel Admin
+                                </a>
+                            </p>
                             <p style="margin:0; font-size:12px; color:#7a6f5c;">
                                 Tandai status inquiry ini (Baru / Dihubungi / Selesai) melalui admin panel Refi Spice.
                             </p>

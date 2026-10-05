@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasOrder;
+use Database\Factories\MilestoneFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Milestone extends Model
 {
-    /** @use HasFactory<\Database\Factories\MilestoneFactory> */
+    /** @use HasFactory<MilestoneFactory> */
     use HasActiveScope, HasFactory, HasOrder;
 
     protected $fillable = [

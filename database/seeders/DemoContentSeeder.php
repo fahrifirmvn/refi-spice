@@ -8,8 +8,8 @@ use App\Models\Inquiry;
 use App\Models\Milestone;
 use App\Models\PageContent;
 use App\Models\Partner;
-use App\Models\Product;
 use App\Models\ProcessStep;
+use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\Testimonial;
 use Illuminate\Database\Seeder;
@@ -137,29 +137,34 @@ class DemoContentSeeder extends Seeder
         ];
 
         foreach ($products as $index => $data) {
-            $product = Product::create([
-                'slug' => Str::slug($data['name']),
-                'name' => $data['name'],
-                'latin_name' => $data['latin_name'],
-                'lot_number' => sprintf('LOT-%04d-ID', 2024000 + $index),
-                'origin_region' => $data['origin_region'],
-                'origin_label' => $data['origin_label'],
-                'sensory_profile' => $data['sensory_profile'],
-                'export_readiness' => 'Ready to Export',
-                'primary_image_path' => null,
-                'is_featured' => $index < 3,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            $product = Product::updateOrCreate(
+                ['slug' => Str::slug($data['name'])],
+                [
+                    'name' => $data['name'],
+                    'latin_name' => $data['latin_name'],
+                    'lot_number' => sprintf('LOT-%04d-ID', 2024000 + $index),
+                    'origin_region' => $data['origin_region'],
+                    'origin_label' => $data['origin_label'],
+                    'sensory_profile' => $data['sensory_profile'],
+                    'export_readiness' => 'Ready to Export',
+                    'primary_image_path' => 'products/'.Str::slug($data['name']).'.webp',
+                    'primary_image_alt' => 'Komoditas '.$data['name'].' dari '.$data['origin_region'],
+                    'is_featured' => $index < 3,
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
 
             foreach (array_values($data['specs']) as $specIndex => $value) {
                 $key = array_keys($data['specs'])[$specIndex];
 
-                $product->specifications()->create([
-                    'spec_key' => $key,
-                    'spec_value' => $value,
-                    'order' => $specIndex,
-                ]);
+                $product->specifications()->updateOrCreate(
+                    ['spec_key' => $key],
+                    [
+                        'spec_value' => $value,
+                        'order' => $specIndex,
+                    ]
+                );
             }
         }
     }
@@ -167,14 +172,22 @@ class DemoContentSeeder extends Seeder
     private function seedProductTags(): void
     {
         $tags = ['Single-Origin', 'Handpicked', 'Traceable Terroir', 'Non-GMO', 'Fair Trade'];
+        $tagIds = [];
 
         foreach ($tags as $index => $name) {
-            ProductTag::create([
-                'name' => $name,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            $tag = ProductTag::firstOrCreate(
+                ['name' => $name],
+                [
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
+            $tagIds[] = $tag->getKey();
         }
+
+        Product::query()
+            ->where('is_featured', true)
+            ->each(fn (Product $product) => $product->tags()->sync($tagIds));
     }
 
     private function seedMilestones(): void
@@ -198,11 +211,14 @@ class DemoContentSeeder extends Seeder
         ];
 
         foreach ($milestones as $index => $data) {
-            Milestone::create([
-                ...$data,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            Milestone::updateOrCreate(
+                ['title' => $data['title']],
+                [
+                    ...$data,
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
         }
     }
 
@@ -240,14 +256,16 @@ class DemoContentSeeder extends Seeder
         ];
 
         foreach ($stats as $index => $data) {
-            CompanyStat::create([
-                ...$data,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            CompanyStat::updateOrCreate(
+                ['code_label' => $data['code_label']],
+                [
+                    ...$data,
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
         }
     }
-
 
     private function seedCertifications(): void
     {
@@ -255,12 +273,15 @@ class DemoContentSeeder extends Seeder
         $certifications = ['HACCP Certified', 'ISO 22000', 'USDA Organic', 'EU Organic', 'Halal Indonesia'];
 
         foreach ($certifications as $index => $name) {
-            Certification::create([
-                'name' => $name,
-                'logo_path' => null,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            Certification::updateOrCreate(
+                ['name' => $name],
+                [
+                    'logo_path' => null,
+                    'is_active' => true,
+                    'is_verified' => false,
+                    'order' => $index,
+                ]
+            );
         }
     }
 
@@ -302,33 +323,38 @@ class DemoContentSeeder extends Seeder
         ];
 
         foreach ($steps as $index => $data) {
-            ProcessStep::create([
-                'step_number' => $index + 1,
-                'title' => $data['title'],
-                'category_label' => $data['category_label'],
-                'description' => $data['description'],
-                'image_path' => null,
-                'image_caption' => $data['image_caption'],
-                'data_label' => $data['data_label'],
-                'data_value' => $data['data_value'],
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            ProcessStep::updateOrCreate(
+                ['step_number' => $index + 1],
+                [
+                    'title' => $data['title'],
+                    'category_label' => $data['category_label'],
+                    'description' => $data['description'],
+                    'image_path' => 'processes/'.Str::slug($data['title']).'.webp',
+                    'image_alt' => 'Tahapan proses '.$data['title'],
+                    'image_caption' => $data['image_caption'],
+                    'data_label' => $data['data_label'],
+                    'data_value' => $data['data_value'],
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
         }
     }
 
-
     private function seedTestimonials(): void
     {
-        Testimonial::create([
-            'quote' => 'Konsistensi kualitas pala dan cengkeh dari Refi Spice melampaui ekspektasi laboratorium kami di Hamburg. Aroma murni, kadar air terjaga sempurna, dan dokumentasi fitosanitari mereka selalu presisi tanpa celah.',
-            'author_name' => 'Dr. Julian V. Weber',
-            'author_title' => 'Chief Procurement Officer',
-            'author_company' => 'European Botanical Ingredients AG (Hamburg, Germany)',
-            'standard_badge' => 'DIN EN ISO 22000 / HACCP',
-            'is_active' => true,
-            'order' => 0,
-        ]);
+        Testimonial::updateOrCreate(
+            ['author_name' => 'Dr. Julian V. Weber'],
+            [
+                'quote' => 'Konsistensi kualitas pala dan cengkeh dari Refi Spice melampaui ekspektasi laboratorium kami di Hamburg. Aroma murni, kadar air terjaga sempurna, dan dokumentasi fitosanitari mereka selalu presisi tanpa celah.',
+                'author_title' => 'Chief Procurement Officer',
+                'author_company' => 'European Botanical Ingredients AG (Hamburg, Germany)',
+                'standard_badge' => 'DIN EN ISO 22000 / HACCP',
+                'is_active' => true,
+                'is_verified' => false,
+                'order' => 0,
+            ]
+        );
     }
 
     private function seedPartners(): void
@@ -342,12 +368,14 @@ class DemoContentSeeder extends Seeder
         ];
 
         foreach ($partners as $index => $name) {
-            Partner::create([
-                'name' => $name,
-                'logo_path' => null,
-                'is_active' => true,
-                'order' => $index,
-            ]);
+            Partner::updateOrCreate(
+                ['name' => $name],
+                [
+                    'logo_path' => null,
+                    'is_active' => true,
+                    'order' => $index,
+                ]
+            );
         }
     }
 
@@ -360,7 +388,7 @@ class DemoContentSeeder extends Seeder
             'seo' => [
                 'meta_title' => 'Refi Spice — Eksportir Pala & Cengkeh Single-Origin Nusantara',
                 'meta_description' => 'PT Refi Rempah Nusantara mengekspor pala dan cengkeh single-origin bersertifikasi dari Maluku dan Sulawesi untuk buyer B2B industri F&B, farmasi, dan distribusi internasional.',
-                'og_image_path' => '',
+                'og_image_path' => 'products/biji-pala-fuli-banda.webp',
             ],
             'hero' => [
                 'eyebrow' => 'Komoditas Rempah Single-Origin Nusantara',
@@ -387,6 +415,7 @@ class DemoContentSeeder extends Seeder
                 'headline' => 'Menjaga Api Tradisi, Merawat Tanah Leluhur.',
                 'body_paragraph_1' => 'Bermula dari perairan rempah kepulauan Maluku dan pegunungan Sumatra, Refi Spice lahir dengan tekad mengembalikan kejayaan rempah Nusantara ke peta perdagangan dunia dengan transparansi penuh. Kami meyakini bahwa kualitas sejati tidak lahir dari industri massal yang tergesa, melainkan dari kesabaran tanah vulkanik, hembusan angin laut tropis, dan kearifan para petani yang diwariskan turun-temurun.',
                 'body_paragraph_2' => 'Melalui kemitraan berkeadilan bersama ratusan keluarga petani kecil di Maluku, Sulawesi, hingga Flores, setiap tangkai cengkeh dan biji pala dipetik pada tingkat kematangan optimal. Standarisasi pascapanen kami menjaga integritas senyawa bioaktif, menjamin aroma khas dan kandungan minyak esensial murni yang memenuhi standar laboratorium komoditas global.',
+                'archive_photo_path' => 'cerita-kami/banda-heritage.webp',
                 'photo_caption_title' => 'Dokumentasi Kebun Kemitraan Banda & Minahasa, 1998–Sekarang.',
                 'photo_caption_meta' => 'Pengeringan Matahari Alami • Kadar Minyak Atsiri > 11.2%',
                 'photo_badge_title' => '100% Single Origin',
@@ -455,8 +484,8 @@ class DemoContentSeeder extends Seeder
                 'head_office_address' => 'Menara Batavia Lt. 18, Jl. K.H. Mas Mansyur, Jakarta Pusat, 10220, Indonesia.',
                 'processing_facilities' => 'Banda Neira (Kepulauan Banda, Maluku) & Amurang (Minahasa Selatan, Sulawesi Utara).',
                 'email' => 'trade@refi-spice.com',
-                'phone' => '+62 21 5708 920',
-                'whatsapp' => '+62 811 9820 400',
+                'phone' => '+62 821 4069 1515',
+                'whatsapp' => '+62 821 4069 1515',
                 'whatsapp_caption' => 'Fast Desk Response',
                 'operational_hours' => 'Senin - Jumat, 08.00 - 18.00 WIB (GMT+7)',
                 'audit_label' => 'Audit & Lab Traceability',
@@ -470,22 +499,56 @@ class DemoContentSeeder extends Seeder
 
         foreach ($contents as $section => $fields) {
             foreach ($fields as $field => $value) {
-                PageContent::create([
-                    'section_key' => $section,
-                    'field_key' => $field,
-                    'field_value' => $value,
-                ]);
+                PageContent::updateOrCreate(
+                    [
+                        'section_key' => $section,
+                        'field_key' => $field,
+                    ],
+                    [
+                        'field_value' => $value,
+                    ]
+                );
             }
         }
     }
 
-
     private function seedSampleInquiries(): void
     {
-        // A handful of sample inquiries so the admin panel resource/table
-        // can be verified against realistic states (new/contacted/closed).
-        Inquiry::factory()->create(['status' => 'new']);
-        Inquiry::factory()->create(['status' => 'contacted']);
-        Inquiry::factory()->create(['status' => 'closed']);
+        $samples = [
+            [
+                'full_name' => 'Hans Müller',
+                'email' => 'h.mueller@bavarian-spices.de',
+                'company_name' => 'Bavarian Spices GmbH',
+                'destination_country' => 'Germany',
+                'commodity_interest' => 'Biji Pala & Fuli Banda',
+                'volume_estimate' => '5-20 MT',
+                'additional_notes' => 'Looking for Grade A handpicked nutmeg with certificate of analysis.',
+                'status' => 'new',
+            ],
+            [
+                'full_name' => 'Sarah Jenkins',
+                'email' => 's.jenkins@pacific-botanicals.com',
+                'company_name' => 'Pacific Botanicals Ltd',
+                'destination_country' => 'United States',
+                'commodity_interest' => 'Cengkeh Zanzibar Amurang',
+                'volume_estimate' => '20+ MT',
+                'additional_notes' => 'Need sample batch and FOB Tanjung Priok quotation.',
+                'status' => 'contacted',
+            ],
+            [
+                'full_name' => 'Taro Tanaka',
+                'email' => 'tanaka@nippon-extracts.co.jp',
+                'company_name' => 'Nippon Extracts Corp',
+                'destination_country' => 'Japan',
+                'commodity_interest' => 'Kayu Manis Kerinci',
+                'volume_estimate' => '1-5 MT',
+                'additional_notes' => 'Inquiry for high essential oil content cinnamon sticks.',
+                'status' => 'closed',
+            ],
+        ];
+
+        foreach ($samples as $sample) {
+            Inquiry::query()->firstOrCreate(['email' => $sample['email']], $sample);
+        }
     }
 }

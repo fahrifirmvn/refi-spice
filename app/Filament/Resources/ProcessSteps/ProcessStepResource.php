@@ -13,12 +13,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ProcessStepResource extends Resource
 {
     protected static ?string $model = ProcessStep::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowPath;
+
+    protected static ?string $navigationLabel = 'Tahapan Proses Ekspor';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
+
+    protected static ?int $navigationSort = 4;
+
+    public static function getModelLabel(): string
+    {
+        return 'Tahapan Proses';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Tahapan Proses Ekspor';
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -30,6 +30,7 @@ class ProductFactory extends Factory
             'sensory_profile' => $this->faker->sentence(12),
             'export_readiness' => $this->faker->randomElement(['Ready to Export', 'Made to Order', 'Seasonal']),
             'primary_image_path' => null,
+            'primary_image_alt' => null,
             'is_featured' => $this->faker->boolean(30),
             'is_active' => true,
             'order' => 0,

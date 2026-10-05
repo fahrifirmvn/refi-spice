@@ -3,16 +3,20 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasActiveScope;
+use App\Models\Concerns\HasContentImage;
 use App\Models\Concerns\HasOrder;
+use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
-    use HasActiveScope, HasFactory, HasOrder, SoftDeletes;
+    /** @use HasFactory<ProductFactory> */
+    use HasActiveScope, HasContentImage, HasFactory, HasOrder, SoftDeletes;
 
     protected $fillable = [
         'slug',
@@ -24,6 +28,7 @@ class Product extends Model
         'sensory_profile',
         'export_readiness',
         'primary_image_path',
+        'primary_image_alt',
         'is_featured',
         'is_active',
         'order',
@@ -38,5 +43,20 @@ class Product extends Model
     public function specifications(): HasMany
     {
         return $this->hasMany(ProductSpecification::class)->orderBy('order');
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(ProductTag::class);
+    }
+
+    protected function contentImageCollectionName(): string
+    {
+        return 'primary_image';
+    }
+
+    protected function legacyContentImageAttribute(): string
+    {
+        return 'primary_image_path';
     }
 }

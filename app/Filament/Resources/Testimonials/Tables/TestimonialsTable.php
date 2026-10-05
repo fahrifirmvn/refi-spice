@@ -19,27 +19,36 @@ class TestimonialsTable
         return $table
             ->columns([
                 TextColumn::make('author_name')
+                    ->label('Nama')
                     ->searchable(),
                 TextColumn::make('author_title')
+                    ->label('Jabatan')
                     ->searchable(),
                 TextColumn::make('author_company')
+                    ->label('Perusahaan')
                     ->searchable(),
                 TextColumn::make('standard_badge')
+                    ->label('Lencana Standar')
                     ->searchable(),
                 IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean(),
                 TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
+                    ->label('Dihapus Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

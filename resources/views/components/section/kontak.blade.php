@@ -71,6 +71,40 @@
                         </div>
 
                         <div>
+                            <label for="email" class="text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">Alamat Email Bisnis *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                placeholder="nama@perusahaan.com"
+                                autocomplete="email"
+                                aria-describedby="email-error"
+                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
+                            >
+                            @error('email')
+                                <p id="email-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="phone" class="text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">Telepon / WhatsApp</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value="{{ old('phone') }}"
+                                placeholder="+62 812 3456 7890"
+                                autocomplete="tel"
+                                aria-describedby="phone-error"
+                                class="mt-2 w-full border-b border-[var(--color-border-hairline)] bg-transparent pb-2 text-sm text-[var(--color-text-ink)] placeholder:text-[var(--color-text-muted)]/60 focus:border-[var(--color-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
+                            >
+                            @error('phone')
+                                <p id="phone-error" class="mt-1 text-xs text-[var(--color-error-text)]">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
                             <span class="text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">Perusahaan &amp; Negara Tujuan *</span>
                             <div class="mt-2 flex gap-3">
                                 <div class="w-1/2">

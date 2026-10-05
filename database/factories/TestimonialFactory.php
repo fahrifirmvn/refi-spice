@@ -24,6 +24,7 @@ class TestimonialFactory extends Factory
             'author_company' => $this->faker->company(),
             'standard_badge' => $this->faker->optional()->randomElement(['ISO 22000', 'HACCP']),
             'is_active' => true,
+            'is_verified' => false,
             'order' => 0,
         ];
     }

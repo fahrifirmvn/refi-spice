@@ -1,0 +1,93 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+@layer components {
+    .fi-body {
+        background: #f7f5f1;
+        color: #302b25;
+    }
+
+    .fi-sidebar {
+        background: #fffdf9;
+        border-inline-end-color: #e8e2da;
+    }
+
+    .fi-sidebar-header {
+        border-bottom-color: #e8e2da;
+    }
+
+    .fi-sidebar-item > a,
+    .fi-sidebar-group-label {
+        border-radius: 0.75rem;
+    }
+
+    .fi-sidebar-item.fi-active > a {
+        background: #fcebd9;
+        color: #8d3d17;
+    }
+
+    .fi-sidebar-item > a:hover {
+        background: #faf1e8;
+    }
+
+    .fi-topbar {
+        background: rgb(255 253 249 / 92%);
+        border-bottom-color: #e8e2da;
+        backdrop-filter: blur(14px);
+    }
+
+    .fi-main {
+        max-width: 90rem;
+    }
+
+    .fi-page-header-heading {
+        color: #332a22;
+        letter-spacing: -0.025em;
+    }
+
+    .fi-section,
+    .fi-ta-ctn {
+        border-color: #e8e2da;
+        background: #fffdf9;
+        box-shadow: 0 1px 2px rgb(70 50 30 / 5%);
+    }
+
+    .fi-section-header {
+        border-bottom-color: #eee8e1;
+    }
+
+    .fi-input-wrp,
+    .fi-select-input {
+        border-color: #d9d0c6;
+        background: #fff;
+    }
+
+    .fi-input-wrp:focus-within,
+    .fi-select-input:focus {
+        border-color: #c45f26;
+        box-shadow: 0 0 0 3px rgb(196 95 38 / 15%);
+    }
+
+    .fi-btn.fi-color-primary {
+        background: #a84d1f;
+    }
+
+    .fi-btn.fi-color-primary:hover {
+        background: #8d3d17;
+    }
+
+    .fi-ta-row:hover {
+        background: #fffaf4;
+    }
+
+    .fi-ta-header-cell {
+        background: #f8f3ed;
+        color: #6b5a4d;
+    }
+
+    .refi-admin-welcome {
+        background: linear-gradient(135deg, #fff6ea 0%, #fffdf9 62%, #f9eee3 100%);
+    }
+}

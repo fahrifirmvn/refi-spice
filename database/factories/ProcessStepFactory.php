@@ -23,6 +23,7 @@ class ProcessStepFactory extends Factory
             'category_label' => ucwords($this->faker->words(2, true)),
             'description' => $this->faker->paragraph(),
             'image_path' => null,
+            'image_alt' => null,
             'image_caption' => ucwords($this->faker->words(2, true)),
             'data_label' => ucfirst($this->faker->word()),
             'data_value' => (string) $this->faker->numberBetween(1, 100),

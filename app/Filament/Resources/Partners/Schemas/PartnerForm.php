@@ -14,15 +14,22 @@ class PartnerForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama Mitra/Klien')
+                    ->helperText('Mis. "Nordic Spice Co. — Kopenhagen, Denmark".')
                     ->required(),
                 FileUpload::make('logo_path')
+                    ->label('Logo Mitra')
                     ->image()
                     ->directory('partners')
                     ->default(null),
                 Toggle::make('is_active')
+                    ->label('Tampilkan di Website')
+                    ->helperText('Jika nonaktif, logo mitra ini disembunyikan dari halaman publik.')
                     ->required()
                     ->default(true),
                 TextInput::make('order')
+                    ->label('Urutan Tampil')
+                    ->helperText('Angka lebih kecil tampil lebih dulu.')
                     ->required()
                     ->numeric()
                     ->default(0),

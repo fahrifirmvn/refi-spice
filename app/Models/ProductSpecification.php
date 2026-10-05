@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasOrder;
+use Database\Factories\ProductSpecificationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductSpecification extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductSpecificationFactory> */
+    /** @use HasFactory<ProductSpecificationFactory> */
     use HasFactory, HasOrder;
 
     protected $fillable = [

@@ -15,12 +15,29 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class TestimonialResource extends Resource
 {
     protected static ?string $model = Testimonial::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
+
+    protected static ?string $navigationLabel = 'Testimoni Klien';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kepercayaan & Kemitraan';
+
+    protected static ?int $navigationSort = 2;
+
+    public static function getModelLabel(): string
+    {
+        return 'Testimoni';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Testimoni Klien';
+    }
 
     public static function form(Schema $schema): Schema
     {

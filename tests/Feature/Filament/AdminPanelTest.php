@@ -7,12 +7,14 @@ use App\Filament\Resources\Inquiries\Pages\EditInquiry;
 use App\Filament\Resources\PageContents\PageContentResource;
 use App\Filament\Resources\PageContents\Pages\EditPageContent;
 use App\Filament\Resources\Products\Pages\CreateProduct;
+use App\Mail\NewInquiryNotification;
 use App\Models\Inquiry;
 use App\Models\PageContent;
 use App\Models\Product;
 use App\Models\User;
 use Filament\Auth\Pages\Login;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -81,6 +83,56 @@ class AdminPanelTest extends TestCase
             ->assertHasNoFormErrors();
 
         $this->assertSame('contacted', $inquiry->fresh()->status);
+    }
+
+    public function test_admin_can_schedule_an_inquiry_follow_up(): void
+    {
+        $this->actingAs($this->admin());
+
+        $inquiry = Inquiry::factory()->create(['status' => 'new']);
+        $followUpAt = now()->addDay()->startOfMinute();
+
+        Livewire::test(EditInquiry::class, ['record' => $inquiry->getRouteKey()])
+            ->fillForm([
+                'status' => 'contacted',
+                'follow_up_at' => $followUpAt->format('Y-m-d H:i:s'),
+                'follow_up_notes' => 'Kirim katalog harga untuk review buyer.',
+            ])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $this->assertDatabaseHas('inquiries', [
+            'id' => $inquiry->id,
+            'status' => 'contacted',
+            'follow_up_at' => $followUpAt->format('Y-m-d H:i:s'),
+            'follow_up_notes' => 'Kirim katalog harga untuk review buyer.',
+        ]);
+    }
+
+    public function test_admin_can_retry_a_failed_inquiry_email_notification(): void
+    {
+        Mail::fake();
+
+        $this->actingAs($this->admin());
+        $inquiry = Inquiry::factory()->create([
+            'email_sent_at' => null,
+            'email_failed_reason' => 'SMTP server tidak dapat dihubungi.',
+        ]);
+
+        Livewire::test(EditInquiry::class, ['record' => $inquiry->getRouteKey()])
+            ->callAction('retryEmailNotification');
+
+        $this->assertNull($inquiry->fresh()->email_failed_reason);
+        Mail::assertQueued(NewInquiryNotification::class, fn (NewInquiryNotification $mail): bool => $mail->inquiry->is($inquiry));
+    }
+
+    public function test_retry_email_action_is_hidden_after_notification_is_sent(): void
+    {
+        $this->actingAs($this->admin());
+        $inquiry = Inquiry::factory()->create(['email_sent_at' => now()]);
+
+        Livewire::test(EditInquiry::class, ['record' => $inquiry->getRouteKey()])
+            ->assertActionHidden('retryEmailNotification');
     }
 
     public function test_page_content_resource_cannot_be_created_or_deleted(): void

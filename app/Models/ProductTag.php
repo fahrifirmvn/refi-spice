@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasOrder;
+use Database\Factories\ProductTagFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductTag extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductTagFactory> */
+    /** @use HasFactory<ProductTagFactory> */
     use HasActiveScope, HasFactory, HasOrder;
 
     protected $fillable = [
@@ -22,4 +24,9 @@ class ProductTag extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

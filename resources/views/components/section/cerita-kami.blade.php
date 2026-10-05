@@ -13,8 +13,9 @@
 
                     <div class="relative mt-3">
                         <x-ui.placeholder-image
+                            :src="!empty($content['archive_photo_path']) ? Storage::disk('public')->url($content['archive_photo_path']) : null"
                             label="Dokumentasi kebun kemitraan Banda dan Minahasa"
-                            class="aspect-[4/5] photo-heritage-grade rounded-md"
+                            class="aspect-[4/5] photo-heritage-grade rounded-md object-cover w-full h-full"
                         />
 
                         <div class="absolute bottom-4 left-4 rounded-md border border-[var(--color-border-hairline)] bg-[var(--color-bg-cream)]/95 px-4 py-3 text-center shadow-sm">

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Inquiry;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * PRD Section 12.3 — cheap operational signal for the manual decision of
@@ -21,15 +22,16 @@ class MailHealthCheckCommand extends Command
         $since = now()->subDays($days);
 
         $attempted = Inquiry::query()
-            ->where('created_at', '>=', $since)
-            ->where(function ($query) {
-                $query->whereNotNull('email_sent_at')->orWhereNotNull('email_failed_reason');
+            ->where(function (Builder $query) use ($since): void {
+                $query
+                    ->where('email_queued_at', '>=', $since)
+                    ->orWhere('email_sent_at', '>=', $since)
+                    ->orWhere('email_failed_at', '>=', $since);
             })
             ->count();
 
         $failed = Inquiry::query()
-            ->where('created_at', '>=', $since)
-            ->whereNotNull('email_failed_reason')
+            ->where('email_failed_at', '>=', $since)
             ->count();
 
         if ($attempted === 0) {

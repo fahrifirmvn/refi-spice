@@ -17,29 +17,40 @@ class ProcessStepsTable
         return $table
             ->columns([
                 TextColumn::make('step_number')
+                    ->label('Nomor Tahap')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('title')
+                    ->label('Judul Tahap')
                     ->searchable(),
                 TextColumn::make('category_label')
+                    ->label('Label Kategori')
                     ->searchable(),
-                ImageColumn::make('image_path'),
+                ImageColumn::make('image_path')
+                    ->label('Foto'),
                 TextColumn::make('image_caption')
+                    ->label('Keterangan Foto')
                     ->searchable(),
                 TextColumn::make('data_label')
+                    ->label('Label Angka')
                     ->searchable(),
                 TextColumn::make('data_value')
+                    ->label('Nilai Angka')
                     ->searchable(),
                 IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean(),
                 TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -21,6 +21,7 @@ class CertificationFactory extends Factory
             'name' => $this->faker->randomElement(['HACCP', 'ISO 22000', 'USDA Organic', 'EU Organic', 'Halal Indonesia']),
             'logo_path' => null,
             'is_active' => true,
+            'is_verified' => false,
             'order' => 0,
         ];
     }

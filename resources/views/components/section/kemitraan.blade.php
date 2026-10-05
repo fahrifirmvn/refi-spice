@@ -60,6 +60,18 @@
                 @endphp
                 <div data-aos="fade-up" data-aos-delay="{{ $loop->index * 90 }}" class="rounded-lg border border-[var(--color-border-hairline)] bg-[var(--color-bg-beige)] p-5">
                     <p class="text-[10px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-muted)]">{{ sprintf('Stamp %02d', $loop->iteration) }}</p>
+                    @if ($partner->contentImageUrl('thumbnail'))
+                        <x-ui.placeholder-image
+                            :src="$partner->contentImageUrl('thumbnail')"
+                            :srcset="$partner->contentImageSrcset('thumbnail')"
+                            sizes="160px"
+                            :label="'Logo '.$partnerName"
+                            class="mt-3 h-16 w-full object-contain"
+                            loading="lazy"
+                            :width="400"
+                            :height="400"
+                        />
+                    @endif
                     <h3 class="mt-3 font-heading text-lg leading-snug text-[var(--color-text-ink)]">{{ $partnerName }}</h3>
                     <p class="mt-1 text-xs text-[var(--color-text-muted)]">{{ $partnerLocation }}</p>
                 </div>

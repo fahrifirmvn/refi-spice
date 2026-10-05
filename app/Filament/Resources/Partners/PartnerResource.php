@@ -15,12 +15,29 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
+
+    protected static ?string $navigationLabel = 'Mitra & Klien';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kepercayaan & Kemitraan';
+
+    protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return 'Mitra/Klien';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Mitra & Klien';
+    }
 
     public static function form(Schema $schema): Schema
     {

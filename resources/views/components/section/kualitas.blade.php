@@ -55,7 +55,19 @@
                 <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--color-text-cream-muted)]">{{ $content['accreditation_label'] ?? '' }}</p>
                 <div class="mt-4 flex flex-wrap gap-3">
                     @foreach ($certifications as $certification)
-                        <span class="rounded-md border border-[var(--color-accent-gold)]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-accent-gold)]">
+                        <span class="flex items-center gap-2 rounded-md border border-[var(--color-accent-gold)]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-accent-gold)]">
+                            @if ($certification->contentImageUrl('thumbnail'))
+                                <x-ui.placeholder-image
+                                    :src="$certification->contentImageUrl('thumbnail')"
+                                    :srcset="$certification->contentImageSrcset('thumbnail')"
+                                    sizes="32px"
+                                    :label="'Logo sertifikasi '.$certification->name"
+                                    class="h-8 w-8 object-contain"
+                                    loading="lazy"
+                                    :width="400"
+                                    :height="400"
+                                />
+                            @endif
                             {{ $certification->name }}
                         </span>
                     @endforeach

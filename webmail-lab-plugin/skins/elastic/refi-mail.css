@@ -1,0 +1,1885 @@
+/*
+ * Refi Mail local skin overrides for Roundcube Elastic.
+ * Native Roundcube owns authentication, mail transport, folders, and commands.
+ */
+
+:root {
+  --refi-blue: #0b57d0;
+  --refi-blue-dark: #0842a0;
+  --refi-blue-soft: #d3e3fd;
+  --refi-canvas: #f6f8fc;
+  --refi-surface: #fff;
+  --refi-sidebar: #f6f8fc;
+  --refi-row-read: #f7f9fc;
+  --refi-ink: #1f1f1f;
+  --refi-muted: #5f6368;
+  --refi-border: #e2e7ef;
+  --refi-hover: #eaf1fb;
+  --refi-focus: 0 0 0 3px rgb(11 87 208 / 22%);
+  --refi-shadow: 0 1px 3px rgb(60 64 67 / 16%);
+  --refi-appbar-height: 64px;
+  --refi-sidebar-width: 240px;
+  --refi-icon-size: 20px;
+  --refi-control-size: 40px;
+  --refi-touch-size: 44px;
+}
+
+html,
+body {
+  background: var(--refi-canvas);
+  color: var(--refi-ink);
+  font-family: Roboto, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+:where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid rgb(11 87 208 / 42%);
+  outline-offset: 2px;
+}
+
+.refi-icon {
+  display: block;
+  width: var(--refi-icon-size);
+  height: var(--refi-icon-size);
+  flex: 0 0 var(--refi-icon-size);
+  pointer-events: none;
+}
+
+.refi-icon-button::before,
+.refi-icon-button > .inner::before,
+.refi-icon-host::before {
+  display: none !important;
+  content: none !important;
+}
+
+.refi-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+
+.refi-icon-only > .inner {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+.refi-icon-with-label > .inner {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: nowrap !important;
+}
+.refi-icon-sm {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+.refi-icon-lg {
+  width: 22px;
+  height: 22px;
+  flex-basis: 22px;
+}
+
+.refi-icon-sent {
+  transform: translateX(-1px);
+}
+
+.refi-icon-attachment,
+.refi-icon-forward,
+.refi-icon-next {
+  transform: translateX(0.5px);
+}
+
+.refi-icon-reply,
+.refi-icon-previous,
+.refi-icon-back {
+  transform: translateX(-0.5px);
+}
+.refi-icon-button.disabled,
+.refi-icon-button[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.42;
+}
+
+.refi-icon-button:not(.disabled):not([aria-disabled="true"]):active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .refi-icon-button {
+    transition: none;
+  }
+}
+
+
+/* Login */
+body.task-login #layout {
+  display: flex;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--refi-canvas);
+}
+
+body.task-login #layout-content.no-navbar {
+  box-sizing: border-box;
+  width: min(100%, 27rem);
+  margin: 0;
+  padding: clamp(2rem, 5vw, 2.25rem);
+  border: 1px solid #dfe3eb;
+  border-radius: 1rem;
+  background: var(--refi-surface);
+  box-shadow: 0 12px 36px rgb(43 53 72 / 10%);
+  text-align: left;
+}
+
+body.task-login #layout-content.no-navbar > #logo,
+body.task-login #login-footer {
+  display: none;
+}
+
+body.task-login #login-form,
+body.task-login #login-form table,
+body.task-login #login-form tbody,
+body.task-login #login-form tr {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border-spacing: 0;
+}
+
+body.task-login #login-form {
+  top: auto;
+  left: auto;
+  text-align: left;
+}
+
+body.task-login #login-form td {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+body.task-login #login-form td.title {
+  display: block !important;
+  padding: 0 0 0.45rem;
+  text-align: left;
+}
+
+body.task-login #login-form td.title label {
+  color: #3c4043;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+body.task-login #login-form td.input.input-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+body.task-login #login-form td.input .input-group-prepend {
+  display: none !important;
+}
+
+body.task-login #login-form .form-control,
+body.task-login #login-form td.input .form-control {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 3rem;
+  padding-inline: 0.85rem;
+  border: 1px solid #aeb4bd;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: none;
+  color: var(--refi-ink);
+  font-size: 1rem;
+}
+
+body.task-login #login-form .form-control:focus {
+  border-color: var(--refi-blue);
+  box-shadow: var(--refi-focus);
+}
+
+body.task-login .refi-login-intro {
+  margin: 0 0 1.75rem;
+  text-align: left;
+}
+
+body.task-login .refi-login-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+body.task-login .refi-login-mark {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  border-radius: 0.65rem;
+  background: var(--refi-blue);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+body.task-login .refi-login-title {
+  margin: 1.75rem 0 0.45rem;
+  font-size: 1.75rem;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  text-align: left;
+}
+
+body.task-login .refi-login-description,
+body.task-login .refi-login-help {
+  margin: 0;
+  color: var(--refi-muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+body.task-login #login-form .mainaction {
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 0.35rem;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--refi-blue);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+body.task-login #login-form .mainaction:hover,
+body.task-login #login-form .mainaction:focus {
+  background: var(--refi-blue-dark);
+}
+
+body.task-login #login-form .formbuttons {
+  margin: 1.45rem 0 0;
+}
+
+body.task-login #login-form .refi-login-help {
+  margin-top: 1.25rem;
+}
+
+html.dark-mode body.task-login,
+html.dark-mode body.task-login #layout,
+html.dark-mode body.task-login #layout-content.no-navbar,
+html.dark-mode body.task-login #login-form .form-control {
+  background: #fff;
+  color: var(--refi-ink);
+}
+
+html.dark-mode body.task-login #layout {
+  background: var(--refi-canvas);
+}
+
+/* Supporting Roundcube tasks share the light Refi visual language. */
+body.task-addressbook #layout-menu,
+body.task-settings #layout-menu {
+  border-right: 1px solid var(--refi-border);
+  background: var(--refi-canvas) !important;
+}
+
+body.task-addressbook #taskmenu > a.refi-icon-button,
+body.task-settings #taskmenu > a.refi-icon-button,
+body.task-mail.action-compose #taskmenu > a.refi-icon-button {
+  display: flex !important;
+  min-height: 64px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #465164;
+}
+
+body.task-addressbook #taskmenu > a.refi-icon-button .inner,
+body.task-settings #taskmenu > a.refi-icon-button .inner,
+body.task-mail.action-compose #taskmenu > a.refi-icon-button .inner {
+  max-width: 64px;
+  overflow: hidden !important;
+  font-size: 12px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap !important;
+}
+
+body.task-addressbook #taskmenu > a.refi-icon-button:hover,
+body.task-addressbook #taskmenu > a.refi-icon-button.selected,
+body.task-settings #taskmenu > a.refi-icon-button:hover,
+body.task-settings #taskmenu > a.refi-icon-button.selected,
+body.task-mail.action-compose #taskmenu > a.refi-icon-button:hover,
+body.task-mail.action-compose #taskmenu > a.refi-icon-button.selected {
+  background: var(--refi-blue-soft) !important;
+  color: #174ea6 !important;
+}
+
+html.dark-mode body.task-addressbook,
+html.dark-mode body.task-addressbook #layout,
+html.dark-mode body.task-addressbook #layout-sidebar,
+html.dark-mode body.task-addressbook #layout-list,
+html.dark-mode body.task-addressbook #layout-content,
+html.dark-mode body.task-settings,
+html.dark-mode body.task-settings #layout,
+html.dark-mode body.task-settings #layout-sidebar,
+html.dark-mode body.task-settings #layout-list,
+html.dark-mode body.task-settings #layout-content {
+  background: #fff !important;
+  color: var(--refi-ink) !important;
+}
+
+/* Mailbox shell */
+html:not(.iframe) body.task-mail.action-none #layout {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  gap: 0.5rem;
+  padding: var(--refi-appbar-height) 0.5rem 0 0;
+  overflow: hidden;
+  background: var(--refi-canvas);
+}
+
+html:not(.iframe) body.task-mail.action-none #layout-menu.refi-appbar {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 auto;
+  display: grid;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--refi-appbar-height);
+  grid-template-columns: var(--refi-sidebar-width) minmax(28rem, 45rem) minmax(4rem, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  background: var(--refi-canvas);
+}
+
+body.task-mail .refi-appbar-start,
+body.task-mail .refi-appbar-actions {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body.task-mail .refi-appbar-actions {
+  justify-self: end;
+}
+
+body.task-mail .refi-brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--refi-ink);
+  font-size: 1.2rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+}
+
+body.task-mail .refi-brand::before {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 0.625rem;
+  background: var(--refi-blue);
+  color: #fff;
+  content: "R";
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+body.task-mail .refi-brand .inner {
+  font-size: 0;
+}
+
+body.task-mail .refi-brand .inner::after {
+  content: "Refi Mail";
+  font-size: 1.2rem;
+}
+
+body.task-mail .refi-appbar-search,
+body.task-mail .refi-appbar-search .searchbar,
+body.task-mail .refi-appbar-search .searchbar form,
+body.task-mail .refi-appbar-search #mailsearchform {
+  min-width: 0;
+}
+
+body.task-mail .refi-appbar-search .searchbar {
+  display: grid;
+  min-height: 3rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 1.5rem;
+  background: #eaf1fb;
+}
+
+body.task-mail .refi-appbar-search .searchbar:focus-within {
+  border-color: #d5dbe6;
+  background: #fff;
+  box-shadow: var(--refi-shadow);
+}
+
+body.task-mail .refi-appbar-search .searchbar form {
+  width: 100%;
+}
+
+body.task-mail .refi-search-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  justify-self: center;
+  color: #4f5968;
+}
+
+body.task-mail .refi-appbar-search .searchbar form::before {
+  display: none !important;
+  content: none !important;
+}
+
+body.task-mail .refi-appbar-search #mailsearchform {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--refi-ink);
+  font-size: 0.9375rem;
+}
+
+body.task-mail .refi-appbar-search .searchbar > .button {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0.15rem;
+  border-radius: 50%;
+  color: #4f5968;
+}
+
+body.task-mail .refi-appbar-search .searchbar > .button:hover,
+body.task-mail .refi-appbar-search .searchbar > .button:focus {
+  background: #dce7f6;
+  color: #174ea6;
+}
+
+body.task-mail .refi-appbar-search .searchbar > .unread,
+body.task-mail .refi-appbar-search .searchbar > .search {
+  display: none;
+}
+
+body.task-mail .refi-appbar-search .reset.disabled {
+  visibility: hidden;
+}
+
+body.task-mail .refi-appbar-actions .refi-account-menu {
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+}
+
+body.task-mail .refi-appbar-actions .refi-account-menu:hover,
+body.task-mail .refi-appbar-actions .refi-account-menu:focus {
+  background: #e1e7ef;
+}
+
+body.task-mail .refi-account-avatar {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #365f91;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+}
+
+body.task-mail #refi-account-menu .refi-account-menu-name {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--refi-border);
+  color: var(--refi-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+body.task-mail #layout-sidebar,
+body.task-mail #layout-list,
+body.task-mail #layout-content {
+  box-sizing: border-box;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Sidebar */
+body.task-mail #layout-sidebar {
+  display: flex;
+  width: var(--refi-sidebar-width) !important;
+  min-width: var(--refi-sidebar-width) !important;
+  max-width: none !important;
+  flex: 0 0 var(--refi-sidebar-width) !important;
+  flex-direction: column;
+  padding: 0.5rem;
+  background: var(--refi-sidebar);
+}
+
+body.task-mail .refi-taskmenu {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+body.task-mail.action-none #layout-sidebar #taskmenu .action-buttons {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 9px;
+  text-align: left;
+}
+
+body.task-mail.action-none #layout-sidebar #taskmenu .compose {
+  display: inline-flex !important;
+  box-sizing: border-box;
+  width: 144px !important;
+  min-width: 144px;
+  height: 48px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 0 16px;
+  border-radius: 16px;
+  background: #c2e7ff;
+  box-shadow: 0 1px 2px rgb(60 64 67 / 12%);
+  color: #001d35;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+body.task-mail.action-none #layout-sidebar #taskmenu .compose > .inner {
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 20px;
+}
+
+body.task-mail.action-none #layout-sidebar #taskmenu .compose > .refi-icon {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+body.task-mail.action-none #layout-sidebar #taskmenu .compose:hover,
+body.task-mail.action-none #layout-sidebar #taskmenu .compose:focus {
+  background: #a8daf7;
+  box-shadow: var(--refi-shadow);
+}
+
+body.task-mail #folderlist-content {
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+body.task-mail #mailboxlist li > a,
+body.task-mail .refi-taskmenu-links > a {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 12px;
+  margin: 1px 0;
+  padding: 0 14px;
+  border-radius: 20px;
+  color: #465164;
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+body.task-mail #mailboxlist li > a .refi-icon,
+body.task-mail .refi-taskmenu-links > a .refi-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+body.task-mail #mailboxlist li > a > .inner,
+body.task-mail .refi-taskmenu-links > a > .inner {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.task-mail #mailboxlist .unreadcount {
+  min-width: 20px;
+  height: 20px;
+  margin-left: auto;
+  padding: 0 6px;
+  border-radius: 10px;
+  line-height: 20px;
+  text-align: center;
+}
+
+body.task-mail #mailboxlist li > a:hover,
+body.task-mail .refi-taskmenu-links > a:hover,
+body.task-mail .refi-taskmenu-links > a:focus {
+  background: var(--refi-hover);
+  color: #174ea6;
+}
+
+body.task-mail #mailboxlist li.selected > a,
+body.task-mail #mailboxlist li > a.selected,
+body.task-mail .refi-taskmenu-links > a.selected {
+  background: var(--refi-blue-soft);
+  color: #0b3b80;
+  font-weight: 700;
+}
+
+body.task-mail .refi-taskmenu-links {
+  display: grid;
+  gap: 0.1rem;
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--refi-border);
+}
+
+body.task-mail #layout-sidebar > .footer.small {
+  display: block;
+  margin-top: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--refi-border);
+  color: var(--refi-muted);
+  font-size: 0.8125rem;
+}
+
+body.task-mail #quotadisplay:not(.hidden) {
+  display: block;
+}
+
+/* List-first inbox */
+html:not(.iframe) body.task-mail.action-none #layout-list,
+html:not(.iframe) body.task-mail.action-none #layout-content {
+  width: auto !important;
+  min-width: 0;
+  max-width: none !important;
+  flex: 1 1 auto !important;
+  overflow: hidden;
+  border: 1px solid var(--refi-border);
+  border-bottom: 0;
+  border-radius: 1rem 1rem 0 0;
+  background: var(--refi-surface);
+}
+
+html:not(.iframe) body.task-mail.action-none #layout-content {
+  display: none;
+}
+
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="loading"] #layout-list,
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="ready"] #layout-list,
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="error"] #layout-list {
+  display: none;
+}
+
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="loading"] #layout-content,
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="ready"] #layout-content,
+html:not(.iframe) body.task-mail.action-none[data-refi-reader-state="error"] #layout-content {
+  display: flex;
+  flex-direction: column;
+}
+
+body.task-mail #messagelist-header,
+body.task-mail #layout-content > .refi-message-toolbar {
+  display: flex;
+  height: 52px;
+  min-height: 52px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--refi-border);
+  background: #fff;
+}
+
+body.task-mail #messagelist-header .task-menu-button,
+body.task-mail #messagelist-header .back-sidebar-button,
+body.task-mail #messagelist-header .toolbar-menu-button {
+  display: none;
+}
+
+body.task-mail #messagelist-header .refi-list-toolbar,
+body.task-mail #messagelist-header #toolbar-list-menu {
+  display: flex !important;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  list-style: none;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu > li {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+body.task-mail #messagelist-header .refi-list-toolbar > a,
+body.task-mail #messagelist-header .refi-list-toolbar > .button,
+body.task-mail #messagelist-header #toolbar-list-menu > li > a {
+  display: inline-flex !important;
+  box-sizing: border-box;
+  width: var(--refi-control-size);
+  min-width: var(--refi-control-size);
+  height: var(--refi-control-size);
+  min-height: var(--refi-control-size);
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  color: #3f4753;
+}
+
+body.task-mail #messagelist-header .refi-list-toolbar > a:hover,
+body.task-mail #messagelist-header .refi-list-toolbar > a:focus,
+body.task-mail #messagelist-header #toolbar-list-menu > li > a:not(.disabled):hover,
+body.task-mail #messagelist-header #toolbar-list-menu > li > a:not(.disabled):focus {
+  background: var(--refi-hover);
+  color: #174ea6;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu > li:has(.firstpage),
+body.task-mail #messagelist-header #toolbar-list-menu > li:has(.lastpage),
+body.task-mail #messagelist-header #toolbar-list-menu > li:has(input.form-control) {
+  display: none !important;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu > .refi-page-count-item {
+  order: 20;
+  margin-left: auto;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu > li:has(.prevpage) {
+  order: 21;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu > li:has(.nextpage) {
+  order: 22;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu .pagenav-text {
+  margin: 0 8px 0 0;
+  color: var(--refi-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu .prevpage,
+body.task-mail #messagelist-header #toolbar-list-menu .nextpage {
+  display: inline-flex !important;
+  width: var(--refi-control-size);
+  height: var(--refi-control-size);
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+body.task-mail #messagelist-header #toolbar-list-menu a.disabled {
+  opacity: 0.38;
+}
+
+body.task-mail #messagelist,
+body.task-mail #messagelist tbody {
+  display: block;
+  width: 100%;
+}
+
+body.task-mail #messagelist tr.message {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  grid-template-columns: 44px 48px minmax(0, 1fr);
+  align-items: stretch;
+  border-bottom: 1px solid #e8ecf2;
+  background: #fff;
+  color: #303846;
+  font-size: 14px;
+}
+
+body.task-mail #messagelist tr.message:not(.unread) {
+  background: var(--refi-row-read);
+}
+
+body.task-mail #messagelist tr.message:hover {
+  background: var(--refi-hover);
+  box-shadow: inset 0 1px 0 #dfe5ee, inset 0 -1px 0 #dfe5ee;
+}
+
+body.task-mail #messagelist tr.message.focused,
+body.task-mail #messagelist tr.message.selected {
+  background: var(--refi-blue-soft);
+  box-shadow: inset 2px 0 0 var(--refi-blue);
+}
+
+body.task-mail #messagelist tr.message td {
+  display: flex !important;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 0;
+  height: 48px !important;
+  min-height: 48px !important;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.35;
+}
+
+body.task-mail #messagelist td.selection {
+  grid-column: 1;
+  justify-content: center;
+  padding: 0;
+}
+
+body.task-mail #messagelist td.selection input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--refi-blue);
+}
+
+body.task-mail #messagelist td.flags {
+  display: flex !important;
+  grid-column: 2;
+  grid-row: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0;
+}
+
+body.task-mail #messagelist td.flags .flag,
+body.task-mail #messagelist td.flags .attachment {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: #5f6368;
+}
+
+body.task-mail #messagelist td.flags .attachment:not([title]) {
+  display: none;
+}
+body.task-mail #messagelist td.flags [role="button"] {
+  border-radius: 50%;
+}
+
+body.task-mail #messagelist td.flags [role="button"]:hover,
+body.task-mail #messagelist td.flags [role="button"]:focus-visible {
+  background: rgb(60 64 67 / 10%);
+  color: #174ea6;
+}
+
+
+body.task-mail #messagelist td.flags .refi-icon {
+  width: 17px;
+  height: 17px;
+  flex-basis: 17px;
+}
+
+body.task-mail #messagelist td.flags .flagged .refi-icon {
+  fill: #f4b400;
+  stroke: #8a5e00;
+}
+
+body.task-mail #messagelist td.subject {
+  display: grid !important;
+  grid-column: 3;
+  grid-row: 1;
+  grid-template-columns: minmax(160px, 210px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 0 4px;
+}
+
+html:not(.iframe) body.task-mail.action-none #layout-list #messagelist tr.message td.subject {
+  display: grid !important;
+}
+
+body.task-mail #messagelist td.subject .fromto,
+body.task-mail #messagelist td.subject > .subject,
+body.task-mail #messagelist td.subject .date {
+  min-width: 0;
+  height: 20px;
+  grid-row: 1;
+  overflow: hidden;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.task-mail #messagelist td.subject .fromto {
+  grid-column: 1;
+  padding: 0;
+  color: #465164;
+  font-weight: 600;
+}
+
+body.task-mail #messagelist td.subject > .subject {
+  grid-column: 2;
+  padding: 0;
+  color: #303846;
+}
+
+body.task-mail #messagelist td.subject .subject a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body.task-mail #messagelist td.subject .date {
+  grid-column: 3;
+  padding: 0;
+  color: #596579;
+  font-size: 13px;
+}
+
+body.task-mail #messagelist td.subject .size,
+body.task-mail #messagelist td.subject .msgicon {
+  display: none;
+}
+
+body.task-mail #messagelist tr.unread td.subject .fromto,
+body.task-mail #messagelist tr.unread td.subject > .subject,
+body.task-mail #messagelist tr.unread td.subject .date {
+  color: #172033;
+  font-weight: 750;
+}
+
+/* Reader shell */
+body.task-mail #layout-content > .refi-message-toolbar {
+  flex: 0 0 auto;
+  min-height: 3.25rem;
+  justify-content: flex-start !important;
+}
+
+body.task-mail #layout-content > .refi-message-toolbar > .back-list-button {
+  display: inline-flex !important;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu {
+  display: flex !important;
+  width: auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.15rem;
+  margin: 0 !important;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  list-style: none;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li {
+  display: flex;
+  align-items: center;
+}
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li.spacer,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li:has(.spacer) {
+  display: none;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar .spacer {
+  display: none;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar > a,
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar > .dropbutton > a,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li > a,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li > .dropbutton > a,
+body.task-mail .refi-message-toolbar .back-list-button {
+  box-sizing: border-box;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  color: #3f4753;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .hidden,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .hidden-big,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .hidden-large {
+  display: none !important;
+}
+
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .reply,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .reply-all,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu .forward,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu #replyallmenulink,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu #forwardmenulink {
+  display: none !important;
+}
+body.task-mail .refi-message-toolbar a:has(> .refi-icon)::before,
+body.task-mail .refi-message-toolbar a:has(> .refi-icon) > .inner::before {
+  display: none !important;
+  content: none !important;
+}
+
+body.task-mail .refi-message-toolbar a:has(> .refi-icon) > .inner {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+body.task-mail .refi-message-toolbar > .toolbar-menu-button {
+  display: none !important;
+}
+
+
+
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar > a:hover,
+body.task-mail #layout-content .refi-message-toolbar #mailtoolbar > .dropbutton > a:hover,
+body.task-mail #layout-content .refi-message-toolbar #toolbar-menu > li > a:not(.disabled):hover,
+body.task-mail .refi-message-toolbar .back-list-button:hover {
+  background: var(--refi-hover);
+  color: #174ea6;
+}
+
+body.task-mail #layout-content .refi-message-toolbar .dropdown {
+  width: 1.5rem !important;
+  min-width: 1.5rem !important;
+  margin-left: -0.35rem !important;
+}
+
+body.task-mail #layout-content .refi-message-toolbar .dropdown::before {
+  font-size: 0.75rem;
+}
+
+body.task-mail #layout-content .iframe-wrapper {
+  min-height: 0;
+  flex: 1 1 auto;
+  background: #fff;
+}
+
+body.task-mail #layout-content .refi-empty-preview,
+body.task-mail #layout-content .refi-reader-loading,
+body.task-mail #layout-content .refi-reader-error {
+  display: none;
+  min-height: 0;
+  flex: 1 1 auto;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  background: #fff;
+}
+
+body.task-mail[data-refi-reader-state="empty"] #layout-content .refi-empty-preview,
+body.task-mail[data-refi-reader-state="loading"] #layout-content .refi-reader-loading,
+body.task-mail[data-refi-reader-state="error"] #layout-content .refi-reader-error {
+  display: grid;
+}
+
+body.task-mail[data-refi-reader-state="loading"] #layout-content .iframe-wrapper,
+body.task-mail[data-refi-reader-state="error"] #layout-content .iframe-wrapper,
+body.task-mail[data-refi-reader-state="empty"] #layout-content .iframe-wrapper {
+  display: none;
+}
+
+body.task-mail .refi-empty-preview-card,
+body.task-mail .refi-reader-state-card {
+  max-width: 23rem;
+  text-align: center;
+}
+
+body.task-mail .refi-empty-preview-icon {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  margin: 0 auto 1.15rem;
+  border-radius: 50%;
+  background: var(--refi-blue-soft);
+  color: var(--refi-blue);
+  font-size: 1.55rem;
+}
+
+body.task-mail .refi-empty-preview h2,
+body.task-mail .refi-reader-state-card h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+body.task-mail .refi-empty-preview p,
+body.task-mail .refi-reader-state-card p {
+  margin: 0.55rem 0 0;
+  color: #6b7280;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+body.task-mail .refi-reader-retry {
+  min-height: 2.75rem;
+  margin-top: 1rem;
+  padding-inline: 1rem;
+  border: 0;
+  border-radius: 1.35rem;
+  background: var(--refi-blue);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Message document inside the preview iframe and standalone reader. */
+body.task-mail .refi-message-document > .frame-content {
+  position: relative !important;
+  inset: auto !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 960px !important;
+  min-height: 100%;
+  margin: 0 auto !important;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  overflow: visible;
+  background: #fff;
+}
+
+body.task-mail .refi-message-document #message-header {
+  margin-bottom: 1.75rem;
+}
+
+body.task-mail .refi-message-document #message-header h2.subject {
+  margin: 0 0 1.25rem;
+  color: var(--refi-ink);
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+body.task-mail .refi-message-document #message-header > .header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  border: 0;
+  background: transparent;
+}
+
+body.task-mail .refi-message-document .contactphoto {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  border-radius: 50%;
+}
+
+body.task-mail .refi-message-document .header-content {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+body.task-mail .refi-message-document .header-summary,
+body.task-mail .refi-message-document .header-headers {
+  color: #3c4043;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+body.task-mail .refi-message-document .header-links {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+}
+
+body.task-mail .refi-message-document #message-content {
+  display: block;
+  min-width: 0;
+}
+
+body.task-mail .refi-message-document #message-content .leftcol:empty,
+body.task-mail .refi-message-document #attachment-list:empty {
+  display: none;
+}
+
+body.task-mail .refi-message-document #message-content .rightcol {
+  width: 100%;
+  min-width: 0;
+}
+
+body.task-mail .refi-message-document #messagebody {
+  color: #272b30;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+body.task-mail .refi-message-document #messagebody img,
+body.task-mail .refi-message-document #messagebody table {
+  max-width: 100%;
+}
+
+body.task-mail .refi-message-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--refi-border);
+}
+
+body.task-mail .refi-message-actions > a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0 1rem;
+  border: 1px solid #c9d1dc;
+  border-radius: 1.4rem;
+  color: #174ea6;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body.task-mail .refi-message-actions > a:hover,
+body.task-mail .refi-message-actions > a:focus {
+  background: var(--refi-hover);
+}
+
+body.task-mail .popupmenu,
+body.task-mail .ui-dialog {
+  border: 1px solid var(--refi-border);
+  border-radius: 0.9rem;
+  box-shadow: 0 8px 24px rgb(32 33 36 / 16%);
+}
+
+/* Compose keeps native controls and folds technical options. */
+html:not(.iframe) body.task-mail.action-compose #layout {
+  min-height: 100dvh;
+  background: var(--refi-canvas);
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-menu {
+  border-right: 1px solid var(--refi-border);
+  background: var(--refi-canvas);
+}
+html:not(.iframe) body.task-mail.action-compose #layout-menu .popover-header {
+  display: grid;
+  box-sizing: border-box;
+  height: var(--refi-appbar-height);
+  place-items: center;
+  padding: 0;
+  border-bottom: 1px solid var(--refi-border);
+  background: var(--refi-canvas);
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-menu .popover-header #logo {
+  display: none;
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-menu .popover-header::before {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--refi-blue);
+  color: #fff;
+  content: "R";
+  font-size: 16px;
+  font-weight: 800;
+}
+
+
+body.task-mail.action-compose #layout-menu #taskmenu > a {
+  color: #465164;
+}
+
+body.task-mail.action-compose #layout-menu #taskmenu > a:hover,
+body.task-mail.action-compose #layout-menu #taskmenu > a:focus,
+body.task-mail.action-compose #layout-menu #taskmenu > a.selected {
+  background: var(--refi-blue-soft);
+  color: #174ea6;
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-sidebar.sidebar-right {
+  position: fixed;
+  z-index: 120;
+  inset: var(--refi-appbar-height) 0 0 auto;
+  width: min(100%, 22rem);
+  min-width: 0;
+  transform: translateX(100%);
+  transition: transform 160ms ease;
+  border-left: 1px solid var(--refi-border);
+  background: #fff;
+  box-shadow: -8px 0 24px rgb(32 33 36 / 14%);
+}
+
+html:not(.iframe) body.task-mail.action-compose.refi-compose-options-open #layout-sidebar.sidebar-right {
+  transform: translateX(0);
+}
+html:not(.iframe) body.task-mail.action-compose #layout-content > .header {
+  display: flex;
+  box-sizing: border-box;
+  height: var(--refi-appbar-height);
+  min-height: var(--refi-appbar-height);
+  align-items: center;
+  padding-inline: max(24px, calc((100% - 960px) / 2));
+  border-bottom: 1px solid var(--refi-border);
+  background: #fff;
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-content > .header > .toolbar-menu-button {
+  display: none !important;
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-content > .header .header-title {
+  display: none;
+}
+
+
+body.task-mail.action-compose #toolbar-menu {
+  display: flex !important;
+  width: min(100%, 960px);
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.task-mail.action-compose #toolbar-menu > li,
+body.task-mail.action-compose #toolbar-menu > li.hidden-big {
+  display: flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+body.task-mail.action-compose #toolbar-menu .dropbutton {
+  display: flex;
+  height: var(--refi-control-size);
+  align-items: center;
+}
+
+body.task-mail.action-compose #toolbar-menu .dropbutton > a {
+  position: static;
+}
+body.task-mail.action-compose #toolbar-menu > li.spacer {
+  width: 1px;
+  height: 24px;
+  margin: 0 10px;
+  background: var(--refi-border);
+}
+
+
+body.task-mail.action-compose #toolbar-menu a {
+  width: var(--refi-control-size);
+  min-width: var(--refi-control-size);
+  height: var(--refi-control-size);
+  min-height: var(--refi-control-size);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+}
+
+body.task-mail.action-compose #toolbar-menu a.refi-icon-button {
+  display: inline-flex !important;
+}
+body.task-mail.action-compose #toolbar-menu .refi-icon {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+
+body.task-mail.action-compose #toolbar-menu a:hover,
+body.task-mail.action-compose #toolbar-menu a:focus {
+  background: var(--refi-hover);
+  color: #174ea6;
+}
+
+body.task-mail.action-compose #toolbar-menu .signature.disabled {
+  display: none !important;
+}
+
+html:not(.iframe) body.task-mail.action-compose #layout-content {
+  min-width: 0;
+  background: #fff;
+}
+
+body.task-mail.action-compose #compose-content {
+  box-sizing: border-box;
+  width: min(100%, 1040px);
+  max-width: none;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+body.task-mail.action-compose #compose-headers .form-group.row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  margin: 0 0 8px;
+}
+
+body.task-mail.action-compose #compose-headers .form-group.row > label,
+body.task-mail.action-compose #compose-headers .form-group.row > div {
+  width: auto;
+  max-width: none;
+  padding: 0;
+}
+
+body.task-mail.action-compose #compose-headers .form-group.row > label {
+  padding-right: 16px;
+  color: #3f4753;
+  font-size: 14px;
+  font-weight: 600;
+}
+body.task-mail.action-compose #compose-headers .input-group-append > a:hover,
+body.task-mail.action-compose #compose-headers .input-group-append > a:focus {
+  background: var(--refi-hover);
+  color: #174ea6;
+}
+
+
+body.task-mail.action-compose #compose-headers .form-control,
+body.task-mail.action-compose #compose-headers .custom-select,
+body.task-mail.action-compose #composebody {
+  min-height: var(--refi-touch-size);
+  border-color: #d8dee8;
+  border-radius: 8px;
+  box-shadow: none;
+  font-size: 14px;
+}
+body.task-mail.action-compose #compose-headers .input-group-append > a {
+  display: inline-flex;
+  box-sizing: border-box;
+  width: var(--refi-touch-size);
+  min-width: var(--refi-touch-size);
+  height: var(--refi-touch-size);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #4b5563;
+}
+
+body.task-mail.action-compose #composebody {
+  height: clamp(280px, calc(100dvh - 365px), 560px) !important;
+  resize: vertical;
+}
+
+body.task-mail.action-compose #compose-headers .input-group-append > a .refi-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+body.task-mail.action-compose #composebodycontainer {
+  margin-top: 14px;
+}
+
+body.task-mail.action-compose #composebodycontainer .editor-toolbar {
+  display: flex;
+  box-sizing: border-box;
+  min-height: var(--refi-touch-size);
+  align-items: center;
+  padding: 2px 6px;
+  border: 1px solid #d8dee8;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: #f8fafc;
+}
+
+body.task-mail.action-compose #composebodycontainer .editor-toolbar .mce-i-html {
+  display: inline-flex;
+  width: var(--refi-control-size);
+  height: var(--refi-control-size);
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #4b5563;
+}
+
+body.task-mail.action-compose #composebodycontainer .editor-toolbar + #composebody,
+body.task-mail.action-compose #composebodycontainer #composebody {
+  border-radius: 0 0 8px 8px;
+}
+
+
+body.task-mail.action-compose #compose-headers .form-control:focus,
+body.task-mail.action-compose #compose-headers .custom-select:focus,
+body.task-mail.action-compose #composebody:focus {
+  border-color: var(--refi-blue);
+  box-shadow: var(--refi-focus);
+}
+
+body.task-mail.action-compose .formbuttons {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+body.task-mail.action-compose .formbuttons .float-right {
+  float: none !important;
+}
+
+body.task-mail.action-compose .formbuttons .mainaction,
+body.task-mail.action-compose .btn-primary {
+  min-height: var(--refi-touch-size);
+  border: 0;
+  border-radius: 22px;
+  background: var(--refi-blue);
+  color: #fff;
+  font-weight: 700;
+}
+
+body.task-mail.action-compose .formbuttons .send {
+  gap: 8px;
+  padding: 0 18px;
+}
+
+body.task-mail.action-compose .formbuttons .extwin {
+  display: inline-flex;
+  min-height: var(--refi-touch-size);
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: #1769aa;
+  text-decoration: none;
+}
+
+body.task-mail.action-compose .formbuttons .extwin:hover,
+body.task-mail.action-compose .formbuttons .extwin:focus {
+  background: var(--refi-hover);
+}
+
+body.task-mail.action-compose .formbuttons .extwin .refi-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1023px) {
+  :root {
+    --refi-sidebar-width: 216px;
+  }
+
+  html:not(.iframe) body.task-mail.action-none #layout-menu.refi-appbar {
+    grid-template-columns: var(--refi-sidebar-width) minmax(18rem, 1fr) auto;
+    gap: 0.65rem;
+    padding-inline: 0.75rem;
+  }
+
+  body.task-mail #messagelist td.subject {
+    grid-template-columns: minmax(128px, 192px) minmax(0, 1fr) auto;
+  }
+
+  body.task-mail .refi-message-document > .frame-content {
+    padding: 1.75rem;
+  }
+}
+
+/* Mobile uses Roundcube panel switching; one panel fills the viewport. */
+@media (max-width: 768px) {
+  :root {
+    --refi-appbar-height: 56px;
+    --refi-control-size: 44px;
+  }
+
+  html:not(.iframe) body.task-mail.action-none #layout {
+    height: 100dvh;
+    gap: 0;
+    padding-right: 0;
+  }
+
+  html:not(.iframe) body.task-mail.action-none #layout-menu.refi-appbar {
+    height: var(--refi-appbar-height);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.45rem;
+    padding-inline: 0.55rem;
+  }
+
+  body.task-mail .refi-appbar-start > .back-sidebar-button {
+    display: inline-flex;
+    width: var(--refi-touch-size);
+    height: var(--refi-touch-size);
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  body.task-mail .refi-brand .inner {
+    display: none;
+  }
+
+  body.task-mail .refi-brand::before {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  body.task-mail .refi-appbar-search .searchbar {
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  }
+
+  body.task-mail .refi-appbar-search .searchbar > .options,
+  body.task-mail .refi-appbar-search .searchbar > .unread,
+  body.task-mail .refi-appbar-search .searchbar > .search {
+    display: none;
+  }
+
+  body.task-mail #layout-sidebar,
+  body.task-mail #layout-list,
+  body.task-mail #layout-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    flex: 0 0 100% !important;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  html:not(.iframe) body.task-mail.action-none[data-refi-reader-state] #layout-list {
+    display: block;
+  }
+
+  html:not(.iframe) body.task-mail.action-none[data-refi-reader-state] #layout-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.task-mail #layout-content .iframe-wrapper {
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+
+  body.task-mail #layout-content #messagecontframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  body.task-mail #messagelist-header,
+  body.task-mail #layout-content > .refi-message-toolbar {
+    height: 56px;
+    min-height: 56px;
+    padding-inline: 6px;
+  }
+
+  body.task-mail #messagelist-header .back-sidebar-button {
+    display: inline-flex;
+    width: var(--refi-touch-size);
+    min-width: var(--refi-touch-size);
+    height: var(--refi-touch-size);
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  body.task-mail #messagelist-header #toolbar-list-menu .pagenav-text {
+    display: none;
+  }
+
+  body.task-mail #messagelist-header #toolbar-list-menu .prevpage,
+  body.task-mail #messagelist-header #toolbar-list-menu .nextpage {
+    width: var(--refi-touch-size);
+    height: var(--refi-touch-size);
+  }
+
+  body.task-mail #messagelist tr.message {
+    height: 64px;
+    min-height: 64px;
+    grid-template-columns: 44px 48px minmax(0, 1fr);
+  }
+
+  body.task-mail #messagelist td.flags {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+  }
+
+  body.task-mail #messagelist tr.message td {
+    height: 64px !important;
+    min-height: 64px !important;
+  }
+
+  body.task-mail #messagelist td.subject {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    gap: 2px 8px;
+    padding-right: 12px;
+  }
+
+  body.task-mail #messagelist td.subject .fromto {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 15px;
+  }
+
+  body.task-mail #messagelist td.subject > .subject {
+    width: auto;
+    height: 20px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 14px;
+  }
+
+  body.task-mail #messagelist td.subject .date {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 12px;
+  }
+
+  html:not(.iframe) body.task-mail.action-compose #layout-content > .header {
+    height: 56px;
+    min-height: 56px;
+    padding-inline: 8px;
+  }
+
+  body.task-mail.action-compose #toolbar-menu {
+    width: 100%;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  body.task-mail.action-compose #toolbar-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.task-mail.action-compose #toolbar-menu a {
+    width: var(--refi-touch-size);
+    min-width: var(--refi-touch-size);
+    height: var(--refi-touch-size);
+    min-height: var(--refi-touch-size);
+  }
+
+  body.task-mail.action-compose #toolbar-menu > li.spacer {
+    margin-inline: 6px;
+  }
+
+  body.task-mail.action-compose #compose-content {
+    padding: 20px 16px;
+  }
+
+  body.task-mail.action-compose #compose-headers .form-group.row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  body.task-mail.action-compose #compose-headers .form-group.row > label {
+    padding: 0;
+  }
+
+  body.task-mail.action-compose .formbuttons {
+    display: none;
+  }
+
+  body.task-mail.action-compose .content-frame-navigation .buttons {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  body.task-mail.action-compose .content-frame-navigation .buttons > .refi-icon-button {
+    display: inline-flex;
+    min-width: 88px;
+    min-height: 64px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  body.task-mail.action-compose .content-frame-navigation .buttons > .refi-icon-button .refi-icon {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  body.task-mail #layout-content .refi-message-toolbar #mailtoolbar .reply-all,
+  body.task-mail #layout-content .refi-message-toolbar #replyallmenulink,
+  body.task-mail #layout-content .refi-message-toolbar #markmessagemenulink {
+    display: none !important;
+  }
+
+  body.task-mail .refi-message-document > .frame-content {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  body.task-mail .refi-message-document #message-header h2.subject {
+    font-size: 1.35rem;
+  }
+
+  body.task-mail .refi-message-actions {
+    position: sticky;
+    bottom: 0;
+    margin-inline: -1.25rem;
+    padding: 0.75rem 1.25rem;
+    background: #fff;
+  }
+
+  body.task-mail.action-compose #layout-sidebar.sidebar-right {
+    width: min(100%, 22rem);
+  }
+}

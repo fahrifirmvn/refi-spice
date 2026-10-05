@@ -19,12 +19,16 @@ class InquiryFactory extends Factory
     {
         return [
             'full_name' => $this->faker->name(),
+            'email' => $this->faker->unique()->companyEmail(),
+            'phone' => $this->faker->optional()->phoneNumber(),
             'company_name' => $this->faker->company(),
             'destination_country' => $this->faker->country(),
             'commodity_interest' => $this->faker->randomElement(['Pala', 'Cengkeh', 'Kayu Manis', 'Lada Hitam', 'Lada Putih', 'Kapulaga', 'Vanili']),
             'volume_estimate' => $this->faker->randomElement(['1-5 MT', '5-20 MT', '20+ MT']),
             'additional_notes' => $this->faker->optional()->sentence(),
             'status' => 'new',
+            'follow_up_at' => null,
+            'follow_up_notes' => null,
             'email_sent_at' => null,
             'email_failed_reason' => null,
             'ip_address' => $this->faker->ipv4(),

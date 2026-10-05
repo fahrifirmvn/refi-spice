@@ -1,0 +1,13 @@
+{
+  "name": "Refi Mail",
+  "author": "Refi Spice",
+  "extends": "elastic",
+  "license": "Proprietary",
+  "localization": true,
+  "config": {
+    "dark_mode_support": false
+  },
+  "meta": {
+    "theme-color": "#f7f9fc"
+  }
+}

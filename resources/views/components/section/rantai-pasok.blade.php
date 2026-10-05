@@ -45,8 +45,14 @@
 
                     <div class="relative mt-4">
                         <x-ui.placeholder-image
-                            :label="$step->title"
-                            class="aspect-[4/3] photo-heritage-grade rounded-md"
+                            :src="$step->contentImageUrl('medium')"
+                            :srcset="$step->contentImageSrcset('medium')"
+                            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                            :label="$step->image_alt ?: 'Tahapan proses '.$step->title"
+                            class="aspect-[4/3] w-full object-cover photo-heritage-grade rounded-md"
+                            loading="lazy"
+                            :width="800"
+                            :height="600"
                         />
                         <span class="absolute bottom-2 left-2 rounded bg-[var(--color-bg-cream)]/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">
                             {{ $step->image_caption }}

@@ -16,19 +16,25 @@ class CertificationsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('logo_path'),
+                ImageColumn::make('logo_path')
+                    ->label('Logo'),
                 TextColumn::make('name')
+                    ->label('Nama Sertifikasi')
                     ->searchable(),
                 IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean(),
                 TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

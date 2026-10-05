@@ -27,10 +27,26 @@
                     <h3 class="mt-1 font-heading text-2xl text-[var(--color-text-ink)]">{{ $product->name }}</h3>
                     <p class="font-heading text-sm italic text-[var(--color-text-muted)]">{{ $product->latin_name }}</p>
 
+                    @if ($product->tags->isNotEmpty())
+                        <div class="mt-3 flex flex-wrap gap-2" aria-label="Label produk">
+                            @foreach ($product->tags as $tag)
+                                <span class="rounded-full border border-[var(--color-border-hairline)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--color-primary)]">
+                                    {{ $tag->name }}
+                                </span>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div class="relative mt-4 overflow-hidden rounded-md">
                         <x-ui.placeholder-image
-                            :label="$product->name"
-                            class="aspect-[4/3] photo-heritage-grade rounded-md transition-transform duration-[400ms] group-hover:scale-[1.03]"
+                            :src="$product->contentImageUrl('medium')"
+                            :srcset="$product->contentImageSrcset('medium')"
+                            sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+                            :label="$product->primary_image_alt ?: 'Produk '.$product->name.' dari '.$product->origin_region"
+                            class="aspect-[4/3] w-full object-cover photo-heritage-grade rounded-md transition-transform duration-[400ms] group-hover:scale-[1.03]"
+                            loading="lazy"
+                            :width="800"
+                            :height="600"
                         />
                         <span class="absolute bottom-3 left-3 rounded bg-[var(--color-bg-cream)]/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--color-text-ink)]">
                             Origin: {{ strtoupper($product->origin_region) }}
@@ -39,9 +55,9 @@
 
                     <dl class="mt-4 divide-y divide-[var(--color-border-hairline)] text-sm">
                         @foreach ($product->specifications as $spec)
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-muted)]">{{ $spec->spec_key }}</dt>
-                                <dd class="font-medium text-[var(--color-text-ink)]">{{ $spec->spec_value }}</dd>
+                            <div class="flex items-start justify-between gap-3 py-2">
+                                <dt class="shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-text-muted)]">{{ $spec->spec_key }}</dt>
+                                <dd class="flex-1 text-right font-medium text-[var(--color-text-ink)]">{{ $spec->spec_value }}</dd>
                             </div>
                         @endforeach
                     </dl>

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInquiryRequest;
 use App\Mail\NewInquiryNotification;
 use App\Models\Inquiry;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Throwable;
 
 class InquiryController extends Controller
 {
-    public function store(StoreInquiryRequest $request)
+    public function store(StoreInquiryRequest $request): RedirectResponse
     {
         // Honeypot: real users never see/fill this field; a filled value means a bot.
         // Pretend success without persisting or leaking any signal to the bot.
@@ -23,11 +26,16 @@ class InquiryController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        // Dispatched as ShouldQueue (PRD 12.2): non-blocking in production
-        // (QUEUE_CONNECTION=database), and any send failure is caught inside
-        // the mailable itself so it never surfaces as an HTTP error here.
-        Mail::to(config('mail.sales_notification_address'))
-            ->queue(new NewInquiryNotification($inquiry));
+        $inquiry->markEmailQueued();
+
+        try {
+            Mail::to(config('mail.sales_notification_address'))
+                ->queue((new NewInquiryNotification($inquiry))->afterCommit());
+        } catch (Throwable $exception) {
+            report($exception);
+
+            $inquiry->markEmailFailed(Str::limit($exception->getMessage(), 2000));
+        }
 
         return back()->with('success', 'Permintaan inquiry Anda telah kami terima. Tim kami akan menghubungi Anda segera.');
     }

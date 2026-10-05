@@ -1,0 +1,63 @@
+name: refi-spice-webmail-lab
+
+services:
+  mailserver:
+    image: mailserver/docker-mailserver:16.0.1
+    hostname: mail.webmail.test
+    restart: 'no'
+    environment:
+      ACCOUNT_PROVISIONER: FILE
+      ENABLE_AMAVIS: '0'
+      ENABLE_CLAMAV: '0'
+      ENABLE_FAIL2BAN: '0'
+      ENABLE_IMAP: '1'
+      ENABLE_POP3: '0'
+      ENABLE_RSPAMD: '0'
+      LOG_LEVEL: info
+      OVERRIDE_HOSTNAME: mail.webmail.test
+      PERMIT_DOCKER: network
+      SSL_TYPE: self-signed
+      SPOOF_PROTECTION: '1'
+      TLS_LEVEL: intermediate
+    ports:
+      - '127.0.0.1:1587:587'
+      - '127.0.0.1:1993:993'
+    volumes:
+      - webmail_lab_mail_data:/var/mail
+      - webmail_lab_mail_logs:/var/log/mail
+      - webmail_lab_mail_state:/var/mail-state
+      - webmail_lab_mail_config:/tmp/docker-mailserver
+    networks:
+      - webmail_lab
+
+  roundcube:
+    image: roundcube/roundcubemail:1.7.4-apache
+    depends_on:
+      - mailserver
+    restart: 'no'
+    environment:
+      ROUNDCUBEMAIL_DEFAULT_HOST: ssl://mailserver
+      ROUNDCUBEMAIL_DEFAULT_PORT: '993'
+      ROUNDCUBEMAIL_SKIN: refi-mail
+      ROUNDCUBEMAIL_SMTP_PORT: '587'
+      ROUNDCUBEMAIL_SMTP_SERVER: tls://mailserver
+      ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE: 10M
+    ports:
+      - '127.0.0.1:18080:80'
+    volumes:
+      - ./webmail-lab.roundcube.php:/var/roundcube/config/zz-webmail-lab.php:ro
+      - ./webmail-lab-plugin:/var/www/html/plugins/refi_branding:ro
+      - ./webmail-lab-skin/refi-mail:/var/www/html/skins/refi-mail:ro
+      - webmail_lab_roundcube_db:/var/roundcube/db
+    networks:
+      - webmail_lab
+
+networks:
+  webmail_lab:
+
+volumes:
+  webmail_lab_mail_config:
+  webmail_lab_mail_data:
+  webmail_lab_mail_logs:
+  webmail_lab_mail_state:
+  webmail_lab_roundcube_db:
