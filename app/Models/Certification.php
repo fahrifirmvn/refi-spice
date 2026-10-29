@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasContentImage;
 use App\Models\Concerns\HasOrder;
+use App\Models\Concerns\RecordsRevisions;
 use Database\Factories\CertificationFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 class Certification extends Model implements HasMedia
 {
     /** @use HasFactory<CertificationFactory> */
-    use HasActiveScope, HasContentImage, HasFactory, HasOrder;
+    use HasActiveScope, HasContentImage, HasFactory, HasOrder, RecordsRevisions;
 
     protected $fillable = [
         'name',

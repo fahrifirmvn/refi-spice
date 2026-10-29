@@ -18,8 +18,8 @@ class PageContentCatalog
     {
         return [
             'brand' => [
-                'label' => 'Identitas Merek',
-                'description' => 'Tagline di sebelah logo pada header, tampil di semua halaman.',
+                'label' => 'Logo & Identitas Merek',
+                'description' => 'Logo dan tagline pada header, tampil di semua halaman.',
             ],
             'seo' => [
                 'label' => 'SEO & Metadata',
@@ -50,7 +50,7 @@ class PageContentCatalog
                 'description' => 'Bagian daftar mitra/klien internasional (logo mitra diatur di menu Mitra & Klien).',
             ],
             'contact' => [
-                'label' => 'Kontak & Formulir Inquiry',
+                'label' => 'Kontak & Formulir Pesan',
                 'description' => 'Bagian formulir hubungi kami & info kontak di bagian bawah halaman.',
             ],
             'footer' => [
@@ -103,6 +103,11 @@ class PageContentCatalog
                 'photo_caption_meta' => ['label' => 'Detail Keterangan Foto', 'helper' => 'Baris info tambahan di bawah judul keterangan foto.'],
                 'photo_badge_title' => ['label' => 'Lencana Foto — Judul', 'helper' => 'Judul lencana kecil di atas foto, mis. "100% Single Origin".'],
                 'photo_badge_subtitle' => ['label' => 'Lencana Foto — Subjudul', 'helper' => 'Subjudul lencana kecil di atas foto.'],
+                'archive_photo_path' => ['label' => 'Foto Utama Bagian Ini', 'helper' => 'Foto di samping cerita perusahaan. Unggah JPG, PNG, atau WebP.'],
+                'signature_name' => ['label' => 'Nama Perusahaan (Tanda Tangan)', 'helper' => 'Nama perusahaan di bawah paragraf cerita.'],
+                'signature_tagline' => ['label' => 'Slogan Perusahaan', 'helper' => 'Slogan kecil di bawah nama perusahaan.'],
+                'spec_label' => ['label' => 'Judul Spesifikasi Komoditas', 'helper' => 'Judul kecil di kanan bawah bagian cerita.'],
+                'spec_value' => ['label' => 'Isi Spesifikasi Komoditas', 'helper' => 'Contoh: "Grade A • Handpicked Sorted".'],
                 'archive_plate_no' => ['label' => 'Nomor Arsip (Dekoratif)', 'helper' => 'Nomor arsip dekoratif kecil di pojok bagian ini.'],
                 'archive_coord' => ['label' => 'Koordinat Arsip (Dekoratif)', 'helper' => 'Koordinat lokasi dekoratif kecil di pojok bagian ini.'],
             ],
@@ -157,10 +162,10 @@ class PageContentCatalog
                 'eyebrow' => ['label' => 'Label Kecil', 'helper' => 'Teks kecil di atas judul bagian.'],
                 'headline' => ['label' => 'Judul Bagian', 'helper' => 'Judul utama bagian Kontak.'],
                 'body' => ['label' => 'Paragraf Pengantar', 'helper' => 'Paragraf deskripsi singkat di bawah judul.'],
-                'form_eyebrow' => ['label' => 'Label Kecil Formulir', 'helper' => 'Teks kecil di atas judul formulir inquiry.'],
+                'form_eyebrow' => ['label' => 'Label Kecil Formulir', 'helper' => 'Teks kecil di atas judul formulir pesan.'],
                 'form_ref' => ['label' => 'Nomor Referensi Formulir (Dekoratif)', 'helper' => 'Kode referensi dekoratif kecil di formulir.'],
                 'form_trust_note' => ['label' => 'Catatan Kepercayaan Formulir', 'helper' => 'Baris teks kecil di bawah formulir, mis. info NDA/sertifikat.'],
-                'submit_label' => ['label' => 'Teks Tombol Kirim', 'helper' => 'Teks tombol submit formulir inquiry.'],
+                'submit_label' => ['label' => 'Teks Tombol Kirim', 'helper' => 'Teks tombol submit formulir pesan.'],
                 'coordinates_label' => ['label' => 'Label Koordinat', 'helper' => 'Judul kecil di atas koordinat kantor.'],
                 'coordinates_value' => ['label' => 'Nilai Koordinat', 'helper' => 'Koordinat GPS kantor/pelabuhan.'],
                 'coordinates_sub' => ['label' => 'Sub-teks Koordinat', 'helper' => 'Baris teks kecil di bawah koordinat GPS.'],

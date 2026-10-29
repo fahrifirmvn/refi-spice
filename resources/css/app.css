@@ -8,22 +8,22 @@
     --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
     --font-label: 'Inter', ui-sans-serif, sans-serif;
 
-    --color-primary: #8c3b2e;
+    --color-primary: #2f5224;
     --color-bg-cream: #f2e8d8;
     --color-bg-beige: #ede0cb;
-    --color-bg-dark: #2b1d14;
+    --color-bg-dark: #1b2b15;
     --color-accent-gold: #c9a961;
-    --color-text-ink: #2b1e16;
-    --color-text-muted: #6b5644;
+    --color-text-ink: #1d2a17;
+    --color-text-muted: #53604a;
     --color-text-cream: #f2e8d8;
-    --color-text-cream-muted: #b8a990;
-    --color-border-hairline: rgba(43, 30, 22, 0.15);
+    --color-text-cream-muted: #b6c0a3;
+    --color-border-hairline: rgba(29, 42, 23, 0.15);
     --color-success: #4a7a4a;
     --color-error: #b03a2e;
     /* Darker variants used specifically for TEXT rendered on the tinted
        (10% opacity) success/error banner backgrounds below — the base
        tokens above fail WCAG AA (4.5:1) at that low opacity (PRD 9.2). */
-    --color-success-text: #3b623b;
+    --color-success-text: #2f5224;
     --color-error-text: #8d2e25;
 
     --container-heritage: 1360px;

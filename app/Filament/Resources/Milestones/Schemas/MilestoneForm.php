@@ -26,14 +26,7 @@ class MilestoneForm
                 Toggle::make('is_active')
                     ->label('Tampilkan di Website')
                     ->helperText('Jika nonaktif, tonggak sejarah ini disembunyikan dari halaman publik.')
-                    ->required()
                     ->default(true),
-                TextInput::make('order')
-                    ->label('Urutan Tampil')
-                    ->helperText('Angka lebih kecil tampil lebih dulu.')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
             ]);
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\Inquiries\Tables;
 
 use App\Models\Inquiry;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -22,6 +24,7 @@ class InquiriesTable
                         ->implode(' · '))
                     ->searchable(),
                 TextColumn::make('commodity_interest')
+                    ->visibleFrom('md')
                     ->label('Kebutuhan')
                     ->description(fn (Inquiry $record): ?string => $record->volume_estimate)
                     ->searchable(),
@@ -41,6 +44,7 @@ class InquiriesTable
                         default => 'gray',
                     }),
                 TextColumn::make('follow_up_at')
+                    ->visibleFrom('md')
                     ->label('Follow-up Berikutnya')
                     ->dateTime('d M Y, H:i')
                     ->placeholder('Belum dijadwalkan')
@@ -91,6 +95,7 @@ class InquiriesTable
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->visibleFrom('md')
                     ->label('Masuk')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
@@ -102,6 +107,12 @@ class InquiriesTable
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
+                SelectFilter::make('destination_country')
+                    ->label('Negara Tujuan')
+                    ->options(fn (): array => Inquiry::query()->distinct()->orderBy('destination_country')->pluck('destination_country', 'destination_country')->all()),
+                SelectFilter::make('commodity_interest')
+                    ->label('Komoditas')
+                    ->options(fn (): array => Inquiry::query()->distinct()->orderBy('commodity_interest')->pluck('commodity_interest', 'commodity_interest')->all()),
                 SelectFilter::make('status')
                     ->label('Status')
                     ->options(['new' => 'Baru', 'contacted' => 'Sudah Dihubungi', 'closed' => 'Selesai']),
@@ -142,6 +153,19 @@ class InquiriesTable
                     }),
             ])
             ->recordActions([
+                Action::make('markContacted')
+                    ->label('Sudah dihubungi')
+                    ->icon(Heroicon::OutlinedCheck)
+                    ->color('success')
+                    ->visible(fn (Inquiry $record): bool => $record->status === 'new')
+                    ->action(fn (Inquiry $record) => $record->update(['status' => 'contacted'])),
+                Action::make('markClosed')
+                    ->label('Selesai')
+                    ->icon(Heroicon::OutlinedCheckCircle)
+                    ->color('gray')
+                    ->requiresConfirmation()
+                    ->visible(fn (Inquiry $record): bool => $record->status !== 'closed')
+                    ->action(fn (Inquiry $record) => $record->update(['status' => 'closed'])),
                 EditAction::make()->label('Tinjau'),
             ])
             ->toolbarActions([

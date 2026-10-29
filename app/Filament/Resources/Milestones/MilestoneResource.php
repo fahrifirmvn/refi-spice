@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\Milestones;
 
-use App\Filament\Resources\Milestones\Pages\CreateMilestone;
-use App\Filament\Resources\Milestones\Pages\EditMilestone;
-use App\Filament\Resources\Milestones\Pages\ListMilestones;
+use App\Filament\Resources\Milestones\Pages\ManageMilestones;
 use App\Filament\Resources\Milestones\Schemas\MilestoneForm;
 use App\Filament\Resources\Milestones\Tables\MilestonesTable;
 use App\Models\Milestone;
@@ -25,7 +23,12 @@ class MilestoneResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {
@@ -57,9 +60,7 @@ class MilestoneResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListMilestones::route('/'),
-            'create' => CreateMilestone::route('/create'),
-            'edit' => EditMilestone::route('/{record}/edit'),
+            'index' => ManageMilestones::route('/'),
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filament\Support\PageContentCatalog;
+use App\Models\Concerns\RecordsRevisions;
 use Database\Factories\PageContentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +17,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class PageContent extends Model implements HasMedia
 {
     /** @use HasFactory<PageContentFactory> */
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, RecordsRevisions;
 
     public const OPEN_GRAPH_IMAGE_COLLECTION = 'open_graph_image';
+
+    public const LOGO_COLLECTION = 'brand_logo';
 
     protected $fillable = [
         'section_key',
@@ -37,13 +41,33 @@ class PageContent extends Model implements HasMedia
             ->value('field_value') ?? $default;
     }
 
+    public function revisionLabel(): string
+    {
+        return PageContentCatalog::sectionLabel($this->section_key).' — '.PageContentCatalog::fieldLabel($this->section_key, $this->field_key);
+    }
+
     public function isOpenGraphImageField(): bool
     {
         return $this->section_key === 'seo' && $this->field_key === 'og_image_path';
     }
 
+    public function isLogoField(): bool
+    {
+        return $this->section_key === 'brand' && $this->field_key === 'logo_path';
+    }
+
+    public function isMediaField(): bool
+    {
+        return $this->isOpenGraphImageField() || $this->isLogoField();
+    }
+
     public function registerMediaCollections(): void
     {
+        $this->addMediaCollection(self::LOGO_COLLECTION)
+            ->useDisk((string) config('media-library.disk_name', 'public'))
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
+            ->singleFile();
+
         $this->addMediaCollection(self::OPEN_GRAPH_IMAGE_COLLECTION)
             ->useDisk((string) config('media-library.disk_name', 'public'))
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
@@ -58,6 +82,19 @@ class PageContent extends Model implements HasMedia
             ->format('jpg')
             ->quality(85)
             ->nonQueued();
+
+        $this->addMediaConversion('logo')
+            ->performOnCollections(self::LOGO_COLLECTION)
+            ->fit(Fit::Max, 256, 256)
+            ->format('webp')
+            ->nonQueued();
+    }
+
+    public function logoUrl(): ?string
+    {
+        $mediaUrl = $this->getFirstMediaUrl(self::LOGO_COLLECTION, 'logo');
+
+        return $mediaUrl !== '' ? $mediaUrl : null;
     }
 
     public function openGraphImageUrl(): ?string

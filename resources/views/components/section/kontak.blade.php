@@ -267,9 +267,12 @@
 
     <footer class="mt-20 -mx-6 bg-[var(--color-bg-dark)] px-6 py-10">
         <div class="mx-auto flex max-w-(--container-heritage) flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <p class="font-heading text-lg tracking-[0.06em] text-[var(--color-accent-gold)]">REFI SPICE</p>
-                <p class="mt-2 max-w-md text-xs leading-relaxed text-[var(--color-text-cream-muted)]">{{ $footer['copyright'] ?? '' }}</p>
+            <div class="flex items-start gap-4">
+                <x-ui.brand-logo :brand="$brand" class="h-16 w-16" loading="lazy" />
+                <div>
+                    <p class="font-heading text-lg tracking-[0.06em] text-[var(--color-accent-gold)]">REFI SPICE</p>
+                    <p class="mt-2 max-w-md text-xs leading-relaxed text-[var(--color-text-cream-muted)]">{{ $footer['copyright'] ?? '' }}</p>
+                </div>
             </div>
 
             <nav class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium uppercase tracking-[0.04em] text-[var(--color-text-cream-muted)]" aria-label="Navigasi footer">

@@ -25,9 +25,14 @@ class PartnerResource extends Resource
 
     protected static ?string $navigationLabel = 'Mitra & Klien';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Kepercayaan & Kemitraan';
+    protected static string|UnitEnum|null $navigationGroup = 'Produk & Kepercayaan';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 4;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {

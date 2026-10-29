@@ -5,18 +5,20 @@ namespace App\Models;
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasContentImage;
 use App\Models\Concerns\HasOrder;
+use App\Models\Concerns\RecordsRevisions;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 
 class Product extends Model implements HasMedia
 {
     /** @use HasFactory<ProductFactory> */
-    use HasActiveScope, HasContentImage, HasFactory, HasOrder, SoftDeletes;
+    use HasActiveScope, HasContentImage, HasFactory, HasOrder, RecordsRevisions, SoftDeletes;
 
     protected $fillable = [
         'slug',
@@ -39,6 +41,27 @@ class Product extends Model implements HasMedia
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (self $product): void {
+            if (blank($product->slug)) {
+                $product->slug = static::uniqueSlugFor($product->name);
+            }
+        });
+    }
+
+    protected static function uniqueSlugFor(string $name): string
+    {
+        $base = Str::slug($name) ?: 'produk';
+        $slug = $base;
+
+        for ($suffix = 2; static::withTrashed()->where('slug', $slug)->exists(); $suffix++) {
+            $slug = "{$base}-{$suffix}";
+        }
+
+        return $slug;
+    }
 
     public function specifications(): HasMany
     {

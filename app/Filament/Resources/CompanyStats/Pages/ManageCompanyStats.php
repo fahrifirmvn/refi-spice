@@ -3,17 +3,17 @@
 namespace App\Filament\Resources\CompanyStats\Pages;
 
 use App\Filament\Resources\CompanyStats\CompanyStatResource;
-use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Actions\CreateAction;
+use Filament\Resources\Pages\ManageRecords;
 
-class EditCompanyStat extends EditRecord
+class ManageCompanyStats extends ManageRecords
 {
     protected static string $resource = CompanyStatResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            CreateAction::make(),
         ];
     }
 }

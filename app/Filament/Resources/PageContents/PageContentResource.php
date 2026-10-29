@@ -24,9 +24,14 @@ class PageContentResource extends Resource
 
     protected static ?string $navigationLabel = 'Ubah Isi Website';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
+    protected static string|UnitEnum|null $navigationGroup = null;
 
     protected static ?int $navigationSort = 1;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {

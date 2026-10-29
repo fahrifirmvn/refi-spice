@@ -23,9 +23,14 @@ class CertificationResource extends Resource
 
     protected static ?string $navigationLabel = 'Sertifikasi & Akreditasi';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
+    protected static string|UnitEnum|null $navigationGroup = 'Produk & Kepercayaan';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 3;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {

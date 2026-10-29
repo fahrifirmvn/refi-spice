@@ -19,7 +19,7 @@
                         />
 
                         <div class="absolute bottom-4 left-4 rounded-md border border-[var(--color-border-hairline)] bg-[var(--color-bg-cream)]/95 px-4 py-3 text-center shadow-sm">
-                            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--color-text-ink)]">100% Single Origin</p>
+                            <p class="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--color-text-ink)]">{{ $content['photo_badge_title'] ?? '' }}</p>
                             <p class="mt-0.5 text-[10px] uppercase tracking-[0.06em] text-[var(--color-text-muted)]">{{ $content['photo_badge_subtitle'] ?? '' }}</p>
                         </div>
                     </div>
@@ -53,14 +53,14 @@
                     <div class="flex items-center gap-3">
                         <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-primary)] font-heading text-sm text-[var(--color-primary)]">R</span>
                         <div>
-                            <p class="font-heading text-sm text-[var(--color-text-ink)]">PT Refi Rempah Nusantara</p>
-                            <p class="text-[11px] uppercase tracking-[0.04em] text-[var(--color-text-muted)]">Dedikasi untuk Bumi Nusantara — Single-Origin Exporter</p>
+                            <p class="font-heading text-sm text-[var(--color-text-ink)]">{{ $content['signature_name'] ?? '' }}</p>
+                            <p class="text-[11px] uppercase tracking-[0.04em] text-[var(--color-text-muted)]">{{ $content['signature_tagline'] ?? '' }}</p>
                         </div>
                     </div>
 
                     <div class="text-right text-[11px] uppercase tracking-[0.06em] text-[var(--color-text-muted)]">
-                        <p>Spesifikasi Komoditas</p>
-                        <p class="font-semibold text-[var(--color-primary)]">Grade A &bull; Handpicked Sorted</p>
+                        <p>{{ $content['spec_label'] ?? '' }}</p>
+                        <p class="font-semibold text-[var(--color-primary)]">{{ $content['spec_value'] ?? '' }}</p>
                     </div>
                 </div>
             </div>

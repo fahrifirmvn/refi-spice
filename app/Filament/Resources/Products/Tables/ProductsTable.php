@@ -34,15 +34,18 @@ class ProductsTable
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('export_readiness')
+                    ->visibleFrom('md')
                     ->label('Status Ekspor')
                     ->searchable(),
                 IconColumn::make('is_featured')
+                    ->visibleFrom('md')
                     ->label('Unggulan')
                     ->boolean(),
                 IconColumn::make('is_active')
                     ->label('Tampil')
                     ->boolean(),
                 TextColumn::make('order')
+                    ->visibleFrom('md')
                     ->label('Urutan')
                     ->numeric()
                     ->sortable(),

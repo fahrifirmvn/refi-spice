@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ProcessSteps\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Support\ContentImageUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -31,11 +31,7 @@ class ProcessStepForm
                     ->label('Penjelasan Tahap')
                     ->required()
                     ->columnSpanFull(),
-                FileUpload::make('image_path')
-                    ->label('Foto Ilustrasi')
-                    ->image()
-                    ->directory('process-steps')
-                    ->default(null),
+                ContentImageUpload::make('illustration', 'Foto Ilustrasi'),
                 TextInput::make('image_caption')
                     ->label('Keterangan Foto')
                     ->default(null),
@@ -50,14 +46,7 @@ class ProcessStepForm
                 Toggle::make('is_active')
                     ->label('Tampilkan di Website')
                     ->helperText('Jika nonaktif, tahap ini disembunyikan dari halaman publik.')
-                    ->required()
                     ->default(true),
-                TextInput::make('order')
-                    ->label('Urutan Tampil')
-                    ->helperText('Angka lebih kecil tampil lebih dulu.')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
             ]);
     }
 }

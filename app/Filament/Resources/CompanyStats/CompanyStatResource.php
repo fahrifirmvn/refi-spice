@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\CompanyStats;
 
-use App\Filament\Resources\CompanyStats\Pages\CreateCompanyStat;
-use App\Filament\Resources\CompanyStats\Pages\EditCompanyStat;
-use App\Filament\Resources\CompanyStats\Pages\ListCompanyStats;
+use App\Filament\Resources\CompanyStats\Pages\ManageCompanyStats;
 use App\Filament\Resources\CompanyStats\Schemas\CompanyStatForm;
 use App\Filament\Resources\CompanyStats\Tables\CompanyStatsTable;
 use App\Models\CompanyStat;
@@ -25,7 +23,12 @@ class CompanyStatResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Website & Konten';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {
@@ -57,9 +60,7 @@ class CompanyStatResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListCompanyStats::route('/'),
-            'create' => CreateCompanyStat::route('/create'),
-            'edit' => EditCompanyStat::route('/{record}/edit'),
+            'index' => ManageCompanyStats::route('/'),
         ];
     }
 }

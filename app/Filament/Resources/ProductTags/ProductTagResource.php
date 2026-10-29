@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\ProductTags;
 
-use App\Filament\Resources\ProductTags\Pages\CreateProductTag;
-use App\Filament\Resources\ProductTags\Pages\EditProductTag;
-use App\Filament\Resources\ProductTags\Pages\ListProductTags;
+use App\Filament\Resources\ProductTags\Pages\ManageProductTags;
 use App\Filament\Resources\ProductTags\Schemas\ProductTagForm;
 use App\Filament\Resources\ProductTags\Tables\ProductTagsTable;
 use App\Models\ProductTag;
@@ -23,9 +21,14 @@ class ProductTagResource extends Resource
 
     protected static ?string $navigationLabel = 'Label Produk';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Katalog Produk';
+    protected static string|UnitEnum|null $navigationGroup = 'Produk & Kepercayaan';
 
     protected static ?int $navigationSort = 2;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {
@@ -57,9 +60,7 @@ class ProductTagResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListProductTags::route('/'),
-            'create' => CreateProductTag::route('/create'),
-            'edit' => EditProductTag::route('/{record}/edit'),
+            'index' => ManageProductTags::route('/'),
         ];
     }
 }

@@ -29,15 +29,10 @@
 
     <div class="mx-auto flex max-w-(--container-heritage) items-center justify-between gap-4 px-6 py-4">
         <a href="/" class="flex items-center gap-3">
-            <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-primary)] text-[var(--color-primary)]" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
-                    <path d="M12 3c-4 3-6 7-6 11a6 6 0 0 0 12 0c0-4-2-8-6-11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                    <path d="M12 7v11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-            </span>
+            <x-ui.brand-logo :brand="$brand" class="h-12 w-12" />
             <span class="flex flex-col leading-none">
                 <span class="font-heading text-lg font-semibold tracking-[0.08em] text-[var(--color-text-ink)]">REFI SPICE</span>
-                <span class="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)] sm:block">
+                <span class="mt-1 hidden whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)] sm:block lg:hidden 2xl:block">
                     {{ $brand['tagline'] ?? 'Single-Origin Botanical Exporter, Indonesia' }}
                 </span>
             </span>
@@ -56,13 +51,13 @@
                 href="#"
                 aria-disabled="true"
                 title="Unduh katalog akan tersedia segera"
-                class="rounded-full border border-[var(--color-border-hairline)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                class="whitespace-nowrap rounded-full border border-[var(--color-border-hairline)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] transition-colors duration-200 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
             >
                 Unduh Katalog
             </a>
             <a
                 href="#kontak"
-                class="rounded-full bg-[var(--color-primary)] px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-all duration-200 hover:scale-[1.02] hover:opacity-90"
+                class="whitespace-nowrap rounded-full bg-[var(--color-primary)] px-5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-cream)] transition-all duration-200 hover:scale-[1.02] hover:opacity-90"
             >
                 Inquiry Ekspor &rarr;
             </a>
@@ -103,7 +98,10 @@
 
         <div class="relative flex h-full w-4/5 max-w-xs flex-col gap-6 bg-[var(--color-bg-cream)] px-6 py-6 shadow-xl">
             <div class="flex items-center justify-between">
-                <span class="font-heading text-base font-semibold tracking-[0.08em]">REFI SPICE</span>
+                <span class="flex items-center gap-3">
+                    <x-ui.brand-logo :brand="$brand" class="h-10 w-10" />
+                    <span class="font-heading text-base font-semibold tracking-[0.08em]">REFI SPICE</span>
+                </span>
                 <button type="button" @click="mobileOpen = false" aria-label="Tutup menu navigasi" class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-hairline)]">
                     <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
                         <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />

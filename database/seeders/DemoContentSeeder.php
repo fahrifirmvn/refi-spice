@@ -384,6 +384,7 @@ class DemoContentSeeder extends Seeder
         $contents = [
             'brand' => [
                 'tagline' => 'Single-Origin Botanical Exporter • Indonesia',
+                'logo_path' => '',
             ],
             'seo' => [
                 'meta_title' => 'Refi Spice — Eksportir Pala & Cengkeh Single-Origin Nusantara',
@@ -420,6 +421,10 @@ class DemoContentSeeder extends Seeder
                 'photo_caption_meta' => 'Pengeringan Matahari Alami • Kadar Minyak Atsiri > 11.2%',
                 'photo_badge_title' => '100% Single Origin',
                 'photo_badge_subtitle' => 'Traceable Terroir',
+                'signature_name' => 'PT Refi Rempah Nusantara',
+                'signature_tagline' => 'Dedikasi untuk Bumi Nusantara — Single-Origin Exporter',
+                'spec_label' => 'Spesifikasi Komoditas',
+                'spec_value' => 'Grade A • Handpicked Sorted',
                 'archive_plate_no' => 'Archival Plate No. 02/ID',
                 'archive_coord' => 'Coord: 4.5262° S, 129.9042° E',
             ],

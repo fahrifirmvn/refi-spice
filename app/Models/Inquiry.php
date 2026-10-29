@@ -125,4 +125,39 @@ class Inquiry extends Model
             'email_failed_reason' => $reason,
         ])->save();
     }
+
+    public function replyMessage(): string
+    {
+        return "Halo {$this->full_name},\n\nTerima kasih atas minat Anda pada {$this->commodity_interest} dari Refi Spice. "
+            ."Kami telah menerima permintaan Anda ({$this->volume_estimate}, tujuan {$this->destination_country}) dan siap berdiskusi lebih lanjut.\n\n"
+            ."Salam,\nTim Refi Spice";
+    }
+
+    public function mailtoUrl(): ?string
+    {
+        if (blank($this->email)) {
+            return null;
+        }
+
+        return 'mailto:'.$this->email
+            .'?subject='.rawurlencode('Permintaan Anda di Refi Spice: '.$this->commodity_interest)
+            .'&body='.rawurlencode($this->replyMessage());
+    }
+
+    public function whatsappUrl(): ?string
+    {
+        $digits = preg_replace('/\D+/', '', (string) $this->phone) ?? '';
+
+        if (str_starts_with($digits, '00')) {
+            $digits = substr($digits, 2);
+        } elseif (str_starts_with($digits, '0')) {
+            $digits = '62'.substr($digits, 1);
+        }
+
+        if (strlen($digits) < 8) {
+            return null;
+        }
+
+        return 'https://wa.me/'.$digits.'?text='.rawurlencode($this->replyMessage());
+    }
 }

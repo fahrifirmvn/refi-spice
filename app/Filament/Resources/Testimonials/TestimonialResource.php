@@ -25,9 +25,14 @@ class TestimonialResource extends Resource
 
     protected static ?string $navigationLabel = 'Testimoni Klien';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Kepercayaan & Kemitraan';
+    protected static string|UnitEnum|null $navigationGroup = 'Produk & Kepercayaan';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 5;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function getModelLabel(): string
     {

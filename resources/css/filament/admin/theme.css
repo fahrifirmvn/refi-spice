@@ -5,17 +5,17 @@
 
 @layer components {
     .fi-body {
-        background: #f7f5f1;
-        color: #302b25;
+        background: #f4f2ea;
+        color: #232d1e;
     }
 
     .fi-sidebar {
-        background: #fffdf9;
-        border-inline-end-color: #e8e2da;
+        background: #fbfaf5;
+        border-inline-end-color: #dfe3d3;
     }
 
     .fi-sidebar-header {
-        border-bottom-color: #e8e2da;
+        border-bottom-color: #dfe3d3;
     }
 
     .fi-sidebar-item > a,
@@ -24,17 +24,17 @@
     }
 
     .fi-sidebar-item.fi-active > a {
-        background: #fcebd9;
-        color: #8d3d17;
+        background: #e4edd8;
+        color: #2f5224;
     }
 
     .fi-sidebar-item > a:hover {
-        background: #faf1e8;
+        background: #eef3e6;
     }
 
     .fi-topbar {
-        background: rgb(255 253 249 / 92%);
-        border-bottom-color: #e8e2da;
+        background: rgb(251 250 245 / 92%);
+        border-bottom-color: #dfe3d3;
         backdrop-filter: blur(14px);
     }
 
@@ -43,51 +43,51 @@
     }
 
     .fi-page-header-heading {
-        color: #332a22;
+        color: #1d2a17;
         letter-spacing: -0.025em;
     }
 
     .fi-section,
     .fi-ta-ctn {
-        border-color: #e8e2da;
-        background: #fffdf9;
-        box-shadow: 0 1px 2px rgb(70 50 30 / 5%);
+        border-color: #dfe3d3;
+        background: #fbfaf5;
+        box-shadow: 0 1px 2px rgb(30 50 20 / 5%);
     }
 
     .fi-section-header {
-        border-bottom-color: #eee8e1;
+        border-bottom-color: #e6e9dc;
     }
 
     .fi-input-wrp,
     .fi-select-input {
-        border-color: #d9d0c6;
+        border-color: #cdd3bf;
         background: #fff;
     }
 
     .fi-input-wrp:focus-within,
     .fi-select-input:focus {
-        border-color: #c45f26;
-        box-shadow: 0 0 0 3px rgb(196 95 38 / 15%);
+        border-color: #4a7a34;
+        box-shadow: 0 0 0 3px rgb(74 122 52 / 18%);
     }
 
     .fi-btn.fi-color-primary {
-        background: #a84d1f;
+        background: #2f5224;
     }
 
     .fi-btn.fi-color-primary:hover {
-        background: #8d3d17;
+        background: #234019;
     }
 
     .fi-ta-row:hover {
-        background: #fffaf4;
+        background: #f3f7ec;
     }
 
     .fi-ta-header-cell {
-        background: #f8f3ed;
-        color: #6b5a4d;
+        background: #f1f4e9;
+        color: #53604a;
     }
 
     .refi-admin-welcome {
-        background: linear-gradient(135deg, #fff6ea 0%, #fffdf9 62%, #f9eee3 100%);
+        background: linear-gradient(135deg, #eef4e4 0%, #fbfaf5 62%, #f3efdf 100%);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasOrder;
+use App\Models\Concerns\RecordsRevisions;
 use Database\Factories\TestimonialFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Testimonial extends Model
 {
     /** @use HasFactory<TestimonialFactory> */
-    use HasActiveScope, HasFactory, HasOrder, SoftDeletes;
+    use HasActiveScope, HasFactory, HasOrder, RecordsRevisions, SoftDeletes;
 
     protected $fillable = [
         'quote',

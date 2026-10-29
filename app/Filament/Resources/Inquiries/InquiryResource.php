@@ -24,7 +24,7 @@ class InquiryResource extends Resource
 
     protected static ?string $navigationLabel = 'Pesan Masuk';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pesan & Follow-up';
+    protected static string|UnitEnum|null $navigationGroup = null;
 
     protected static ?int $navigationSort = 1;
 

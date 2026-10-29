@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasActiveScope;
 use App\Models\Concerns\HasContentImage;
 use App\Models\Concerns\HasOrder;
+use App\Models\Concerns\RecordsRevisions;
 use Database\Factories\ProcessStepFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 class ProcessStep extends Model implements HasMedia
 {
     /** @use HasFactory<ProcessStepFactory> */
-    use HasActiveScope, HasContentImage, HasFactory, HasOrder;
+    use HasActiveScope, HasContentImage, HasFactory, HasOrder, RecordsRevisions;
 
     protected $fillable = [
         'step_number',

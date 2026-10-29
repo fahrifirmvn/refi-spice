@@ -31,8 +31,13 @@ class HomeController extends Controller
 
         $seo->put('og_image_url', $openGraphImage?->openGraphImageUrl());
 
+        $brand = $contentsBySection->get('brand', collect());
+        $brand->put('logo_url', $pageContents->first(
+            fn (PageContent $pageContent): bool => $pageContent->isLogoField()
+        )?->logoUrl());
+
         return view('home', [
-            'brand' => $contentsBySection->get('brand', collect()),
+            'brand' => $brand,
             'seo' => $seo,
             'hero' => $contentsBySection->get('hero', collect()),
             'ceritaKami' => $contentsBySection->get('cerita_kami', collect()),
